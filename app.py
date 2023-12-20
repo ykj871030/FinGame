@@ -31,7 +31,7 @@ line_bot_api = LineBotApi('UJggamRStWntuURfiKYyCfwHKEI+7+28Mv7ZXYsiR+97FGzDMhpVX
 handler = WebhookHandler('b202c38b2526a4ca07fec24075461cf4')
 
 #取得使用者id
-userID = line_bot_api.get_profile('<user_id>')
+userID = line_bot_api.get_profile('user_id')
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
