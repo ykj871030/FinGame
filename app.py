@@ -51,7 +51,7 @@ def callback():
 def handle_message(event):
     msg = event.message.text
     userID = event.source.user_id
-    userName = line_bot_api.get_profile(userID)
+    userName = line_bot_api.get_profile(userID).text
     sendContent=TextSendMessage(text='userID: ' + userID + '\n' + userName + ', 你說的是：\n' + msg + ' 嗎？')
     line_bot_api.reply_message(event.reply_token, sendContent)
     # if '最新合作廠商' in msg:
