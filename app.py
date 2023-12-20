@@ -8,6 +8,8 @@ from linebot.exceptions import (
 )
 from linebot.models import *
 
+from linebot.exceptions import LineBotApiError
+
 
 #======這裡是呼叫的檔案內容=====
 #from message import *
@@ -28,6 +30,8 @@ line_bot_api = LineBotApi('UJggamRStWntuURfiKYyCfwHKEI+7+28Mv7ZXYsiR+97FGzDMhpVX
 # Channel Secret
 handler = WebhookHandler('b202c38b2526a4ca07fec24075461cf4')
 
+#取得使用者id
+userID = line_bot_api.get_profile('<user_id>')
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -49,7 +53,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
-    sendContent=TextSendMessage(text='你說的是：\n' + msg + ' 嗎？')
+    sendContent=TextSendMessage(text=userID + ', 你說的是：\n' + msg + ' 嗎？')
     line_bot_api.reply_message(event.reply_token, sendContent)
     # if '最新合作廠商' in msg:
     #     message = imagemap_message()
