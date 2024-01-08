@@ -58,6 +58,11 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請打：門的密碼是：<密碼> )"))
     elif '門的密碼是' in msg:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text="(這邊就會去資料庫判斷玩家的關卡去撈答案出來比對)"))
+    elif 'inflation' in msg:
+        try:
+            line_bot_api.reply_message(event.reply_token,AudioSendMessage(original_content_url='https://files.soundoftext.com/ad64dd70-67df-11ed-a44a-8501b7b1aefa.mp3'))
+        except Exception as e:
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=str(e)))
     else:
         sendContent=TextSendMessage(text=f'userID: {userID}\n{userName} 你說的是：\n{msg}嗎？')
         line_bot_api.reply_message(event.reply_token, sendContent)
@@ -87,7 +92,7 @@ def handle_message(event):
 def handle_message(event):
     print(event.postback.data)
 
-
+#加入好友的時候會跳出的訊息
 @handler.add(FollowEvent)
 def welcome(event):
     userID = str(event.source.user_id)
