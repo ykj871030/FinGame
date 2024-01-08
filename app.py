@@ -52,7 +52,9 @@ def handle_message(event):
     msg = event.message.text
     userID = str(event.source.user_id)
     userName = line_bot_api.get_profile(userID).display_name
-    if 'Open the door!' in msg:
+    if '開始遊戲' in msg:
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text="(這裡會有四張圖片顯示，還有一個按鈕可以進入關卡)"))
+    elif 'Open the door!' in msg:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請打：門的密碼是：<密碼> )"))
     elif '門的密碼是' in msg:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text="(這邊就會去資料庫判斷玩家的關卡去撈答案出來比對)"))
@@ -90,7 +92,7 @@ def handle_message(event):
 def welcome(event):
     userID = str(event.source.user_id)
     userName = line_bot_api.get_profile(userID).display_name
-    message = TextSendMessage(text=f'userID: {userID}\n{userName} 歡迎加入')
+    message = TextSendMessage(text=f'{userName} 您好，歡迎你加入Fin Game！\n你將會在Fin Game的世界學到\n有關金融報導的英文單字。\n若你已經準備好的話，請輸入「開始遊戲」吧！')
     line_bot_api.reply_message(event.reply_token, message)
         
         
