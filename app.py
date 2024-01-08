@@ -60,8 +60,10 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text="(這邊就會去資料庫判斷玩家的關卡去撈答案出來比對)"))
     elif 'inflation' in msg:
         try:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="inflation 通膨\n一種經濟現象，指一段時間內物價上升的幅度。"))
-            line_bot_api.reply_message(event.reply_token,AudioSendMessage(original_content_url='https://files.soundoftext.com/ad64dd70-67df-11ed-a44a-8501b7b1aefa.mp3', duration=1000))
+            replyArray=[]
+            replyArray.append(TextSendMessage(text="inflation 通膨\n一種經濟現象，指一段時間內物價上升的幅度。"))
+            replyArray.append(AudioSendMessage(original_content_url='https://files.soundoftext.com/ad64dd70-67df-11ed-a44a-8501b7b1aefa.mp3', duration=1000))
+            line_bot_api.reply_message(event.reply_token, replyArray)
         except Exception as e:
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=str(e)))
     else:
