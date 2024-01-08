@@ -60,7 +60,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text="(這邊就會去資料庫判斷玩家的關卡去撈答案出來比對)"))
     elif 'inflation' in msg:
         try:
-            line_bot_api.reply_message(event.reply_token,AudioSendMessage(original_content_url='https://files.soundoftext.com/ad64dd70-67df-11ed-a44a-8501b7b1aefa.mp3'))
+            line_bot_api.reply_message(event.reply_token,AudioSendMessage(original_content_url='https://files.soundoftext.com/ad64dd70-67df-11ed-a44a-8501b7b1aefa.mp3'), duration=1000)
         except Exception as e:
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=str(e)))
     else:
