@@ -52,8 +52,13 @@ def handle_message(event):
     msg = event.message.text
     userID = str(event.source.user_id)
     userName = line_bot_api.get_profile(userID).display_name
-    sendContent=TextSendMessage(text='userID: ' + userID + '\n' + userName + ', 你說的是：\n' + msg + ' 嗎？')
-    line_bot_api.reply_message(event.reply_token, sendContent)
+    if 'Open the door!' in msg:
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請打：門的密碼是：<密碼> )"))
+    elif '門的密碼是' in msg:
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text="(這邊就會去資料庫判斷玩家的關卡去撈答案出來比對)"))
+    else:
+        sendContent=TextSendMessage(text='userID: ' + userID + '\n' + userName + ', 你說的是：\n' + msg + ' 嗎？')
+        line_bot_api.reply_message(event.reply_token, sendContent)
     # if '最新合作廠商' in msg:
     #     message = imagemap_message()
     #     line_bot_api.reply_message(event.reply_token, message)
