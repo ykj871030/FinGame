@@ -57,7 +57,7 @@ def handle_message(event):
     elif '門的密碼是' in msg:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text="(這邊就會去資料庫判斷玩家的關卡去撈答案出來比對)"))
     else:
-        sendContent=TextSendMessage(text='userID: ' + userID + '\n' + userName + ', 你說的是：\n' + msg + ' 嗎？')
+        sendContent=TextSendMessage(text=f'userID: {userID}\n{userName} 你說的是：\n{msg}嗎？')
         line_bot_api.reply_message(event.reply_token, sendContent)
     # if '最新合作廠商' in msg:
     #     message = imagemap_message()
@@ -86,13 +86,11 @@ def handle_message(event):
     print(event.postback.data)
 
 
-@handler.add(MemberJoinedEvent)
+@handler.add(FollowEvent)
 def welcome(event):
-    uid = event.joined.members[0].user_id
-    gid = event.source.group_id
-    profile = line_bot_api.get_group_member_profile(gid, uid)
-    name = profile.display_name
-    message = TextSendMessage(text=f'{name}歡迎加入')
+    userID = str(event.source.user_id)
+    userName = line_bot_api.get_profile(userID).display_name
+    message = TextSendMessage(text=f'userID: {userID}\n{userName} 歡迎加入')
     line_bot_api.reply_message(event.reply_token, message)
         
         
