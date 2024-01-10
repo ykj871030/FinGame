@@ -67,7 +67,7 @@ def handle_message(event):
                                                                               text='(0-1)國仁說：'
                                                                           ), MessageAction(
                                                                               label='<<<左滑<<<',
-                                                                              text=''
+                                                                              text='<<<左滑<<<'
                                                                           )
                                                                       ]
                                                                   ), CarouselColumn(
@@ -80,7 +80,7 @@ def handle_message(event):
                                                                               text='(0-2)國仁說：'
                                                                           ), MessageAction(
                                                                               label='<<<左滑<<<',
-                                                                              text=''
+                                                                              text='<<<左滑<<<'
                                                                           )
                                                                       ]
                                                                   ), CarouselColumn(
@@ -93,7 +93,7 @@ def handle_message(event):
                                                                               text='(0-3)國仁說：'
                                                                           ), MessageAction(
                                                                               label='<<<左滑<<<',
-                                                                              text=''
+                                                                              text='<<<左滑<<<'
                                                                           )
                                                                       ]
                                                                   ), CarouselColumn(
