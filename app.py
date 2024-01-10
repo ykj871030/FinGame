@@ -58,37 +58,46 @@ def handle_message(event):
         story_carousel_template_message = TemplateSendMessage(alt_text='Carousel template',
                                                               template=CarouselTemplate(columns=[
                                                                   CarouselColumn(
-                                                                      thumbnail_image_url='https://example.com/國仁0-1.jpg',
+                                                                      thumbnail_image_url='https://static.wikia.nocookie.net/joke-battles/images/0/04/Wojak.jpg/revision/latest/scale-to-width-down/400?cb=20181226195758',
                                                                       title='國仁要去銀行',
                                                                       text='國仁目前想要投資金融市場，所以前往銀行，詢問理財專員。',
                                                                       actions=[
                                                                           MessageAction(
                                                                               label='國仁說：',
                                                                               text='(0-1)國仁說：'
+                                                                          ), MessageAction(
+                                                                              label='<<<左滑<<<',
+                                                                              text=''
                                                                           )
                                                                       ]
                                                                   ), CarouselColumn(
-                                                                      thumbnail_image_url='https://example.com/國仁0-2.jpg',
+                                                                      thumbnail_image_url='https://static.wikia.nocookie.net/joke-battles/images/0/04/Wojak.jpg/revision/latest/scale-to-width-down/400?cb=20181226195758',
                                                                       title='國仁抽號碼牌',
                                                                       text='國仁到了銀行，遵守排隊原則，抽了張號碼牌。',
                                                                       actions=[
                                                                           MessageAction(
                                                                               label='國仁說：',
                                                                               text='(0-2)國仁說：'
+                                                                          ), MessageAction(
+                                                                              label='<<<左滑<<<',
+                                                                              text=''
                                                                           )
                                                                       ]
                                                                   ), CarouselColumn(
-                                                                      thumbnail_image_url='https://example.com/國仁0-3.jpg',
+                                                                      thumbnail_image_url='https://static.wikia.nocookie.net/joke-battles/images/0/04/Wojak.jpg/revision/latest/scale-to-width-down/400?cb=20181226195758',
                                                                       title='國仁發現銀行的人都消失了',
                                                                       text='抽完號碼牌的國仁發現，原本在銀行的人突然都不見了。',
                                                                       actions=[
                                                                           MessageAction(
                                                                               label='國仁說：',
                                                                               text='(0-3)國仁說：'
+                                                                          ), MessageAction(
+                                                                              label='<<<左滑<<<',
+                                                                              text=''
                                                                           )
                                                                       ]
                                                                   ), CarouselColumn(
-                                                                      thumbnail_image_url='https://example.com/國仁0-4.jpg',
+                                                                      thumbnail_image_url='https://static.wikia.nocookie.net/joke-battles/images/0/04/Wojak.jpg/revision/latest/scale-to-width-down/400?cb=20181226195758',
                                                                       title='國仁看見有扇門是開著的',
                                                                       text='但銀行內竟然有扇門是開著的，出自於好奇，國仁決定走進去一探究竟。',
                                                                       actions=[
@@ -104,22 +113,21 @@ def handle_message(event):
                                                               ]
                                                               )
                                                               )
-
         line_bot_api.reply_message(event.reply_token, story_carousel_template_message)
     elif '(0-1)國仁說：' in msg:
-        talkAbout = '最近剛賺了一筆，手上的閒置資金不知道要做什麼？你不理財，財不理你，閒著也是閒著，不如去銀行詢問理財專員吧！'
+        talkAbout = '國仁：\n最近剛賺了一筆，手上的閒置資金不知道要做什麼？你不理財，財不理你，閒著也是閒著，不如去銀行詢問理財專員吧！'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
     elif '(0-2)國仁說：' in msg:
-        talkAbout = '找了理財專員才發現我還有很多手續要辦理，反正我也是第一次理財，就抽抽號碼牌，等櫃檯叫號吧！希望會被分配到妹子櫃檯。'
+        talkAbout = '國仁：\n找了理財專員才發現我還有很多手續要辦理，反正我也是第一次理財，就抽抽號碼牌，等櫃檯叫號吧！希望會被分配到妹子櫃檯。'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
     elif '(0-3)國仁說：' in msg:
-        talkAbout = '今天銀行沒什麼人，看來也不需要排隊了，真幸運！不對，這是什麼情況？怎麼連櫃檯的人都沒有？難不成下班了嗎？我也才剛到銀行欸！。'
+        talkAbout = '國仁：\n今天銀行沒什麼人，看來也不需要排隊了，真幸運！不對，這是什麼情況？怎麼連櫃檯的人都沒有？難不成下班了嗎？我也才剛到銀行欸！。'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
     elif '(0-4)國仁說：' in msg:
-        talkAbout = '咦？怎麼會有一扇門是開著的？這家銀行的控管誒太鬆散了吧！如果我偷偷跑進去應該也不會怎樣吧，反正銀行現在連半個人都沒有。'
+        talkAbout = '國仁：\n咦？怎麼會有一扇門是開著的？這家銀行的控管誒太鬆散了吧！如果我偷偷跑進去應該也不會怎樣吧，反正銀行現在連半個人都沒有。'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
     elif '進入：開著的房間' in msg:
