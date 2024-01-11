@@ -58,7 +58,7 @@ def handle_message(event):
         story_carousel_template_message = TemplateSendMessage(alt_text='Carousel template',
                                                               template=CarouselTemplate(columns=[
                                                                   CarouselColumn(
-                                                                      thumbnail_image_url='https://i.imgur.com/vf3OuUR.png',
+                                                                      thumbnail_image_url='https://i.imgur.com/RgBlFpa.png',
                                                                       title='國仁要去銀行',
                                                                       text='國仁目前想要投資金融市場，所以前往銀行，詢問理財專員。',
                                                                       actions=[
@@ -71,7 +71,7 @@ def handle_message(event):
                                                                           )
                                                                       ]
                                                                   ), CarouselColumn(
-                                                                      thumbnail_image_url='https://static.wikia.nocookie.net/joke-battles/images/0/04/Wojak.jpg/revision/latest/scale-to-width-down/400?cb=20181226195758',
+                                                                      thumbnail_image_url='https://i.imgur.com/kF5g7ri.png',
                                                                       title='國仁抽號碼牌',
                                                                       text='國仁到了銀行，遵守排隊原則，抽了張號碼牌。',
                                                                       actions=[
@@ -84,7 +84,7 @@ def handle_message(event):
                                                                           )
                                                                       ]
                                                                   ), CarouselColumn(
-                                                                      thumbnail_image_url='https://static.wikia.nocookie.net/joke-battles/images/0/04/Wojak.jpg/revision/latest/scale-to-width-down/400?cb=20181226195758',
+                                                                      thumbnail_image_url='https://i.imgur.com/F8ho4aP.png',
                                                                       title='國仁發現銀行的人都消失了',
                                                                       text='抽完號碼牌的國仁發現，原本在銀行的人突然都不見了。',
                                                                       actions=[
@@ -97,7 +97,7 @@ def handle_message(event):
                                                                           )
                                                                       ]
                                                                   ), CarouselColumn(
-                                                                      thumbnail_image_url='https://static.wikia.nocookie.net/joke-battles/images/0/04/Wojak.jpg/revision/latest/scale-to-width-down/400?cb=20181226195758',
+                                                                      thumbnail_image_url='https://i.imgur.com/3vu72hU.png',
                                                                       title='國仁看見有扇門是開著的',
                                                                       text='但銀行內竟然有扇門是開著的，出自於好奇，國仁決定走進去一探究竟。',
                                                                       actions=[
