@@ -58,7 +58,7 @@ def handle_message(event):
         story_carousel_template_message = TemplateSendMessage(alt_text='Carousel template',
                                                               template=CarouselTemplate(columns=[
                                                                   CarouselColumn(
-                                                                      thumbnail_image_url='https://static.wikia.nocookie.net/joke-battles/images/0/04/Wojak.jpg/revision/latest/scale-to-width-down/400?cb=20181226195758',
+                                                                      thumbnail_image_url='https://i.imgur.com/vf3OuUR.png',
                                                                       title='國仁要去銀行',
                                                                       text='國仁目前想要投資金融市場，所以前往銀行，詢問理財專員。',
                                                                       actions=[
