@@ -54,6 +54,7 @@ def handle_message(event):
     msg = event.message.text
     userID = str(event.source.user_id)
     userName = line_bot_api.get_profile(userID).display_name
+    # 劇情_前情提要
     if '開始遊戲' in msg:
         story_carousel_template_message = TemplateSendMessage(alt_text='Carousel template',
                                                               template=CarouselTemplate(columns=[
@@ -114,7 +115,8 @@ def handle_message(event):
                                                               )
                                                               )
         line_bot_api.reply_message(event.reply_token, story_carousel_template_message)
-    # 劇情
+
+    # 劇情_台詞
     elif '(0-1)國仁說：' in msg:
         talkAbout = '國仁：\n最近剛賺了一筆，手上的閒置資金不知道要做什麼？你不理財，財不理你，閒著也是閒著，不如去銀行詢問理財專員吧！'
         guoSay = TextSendMessage(text=talkAbout)
@@ -131,51 +133,101 @@ def handle_message(event):
         talkAbout = '國仁：\n咦？怎麼會有一扇門是開著的？這家銀行的控管誒太鬆散了吧！如果我偷偷跑進去應該也不會怎樣吧，反正銀行現在連半個人都沒有。'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
+
     # 第一關內容
     elif '進入：開著的房間' in msg:
         # 此處需要用到SQL來確認玩家是否處在第一關
         stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/CIe6qtf.png',
                                            alt_text='room_1_opne',
                                            base_size=BaseSize(height=1024, width=1024),
-                                           actions=[MessageImagemapAction(text='(1)地板小卡：',
+                                           actions=[MessageImagemapAction(text='(1)地板小卡',
                                                                           area=ImagemapArea(x=195, y=890, width=158,
                                                                                             height=105)),
-                                                    MessageImagemapAction(text='(1)關燈：',
+                                                    MessageImagemapAction(text='(1)關燈',
                                                                           area=ImagemapArea(x=898, y=449, width=118,
                                                                                             height=161)),
                                                     ]
                                            )
         line_bot_api.reply_message(event.reply_token, stageMessage)
-    elif '(1)開燈：' in msg:
+    elif '(1)開燈' in msg:
         stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/CIe6qtf.png',
                                            alt_text='room_1_opne',
                                            base_size=BaseSize(height=1024, width=1024),
-                                           actions=[MessageImagemapAction(text='(1)地板小卡：',
+                                           actions=[MessageImagemapAction(text='(1)地板小卡',
                                                                           area=ImagemapArea(x=195, y=890, width=158,
                                                                                             height=105)),
-                                                    MessageImagemapAction(text='(1)關燈：',
+                                                    MessageImagemapAction(text='(1)關燈',
                                                                           area=ImagemapArea(x=898, y=449, width=118,
                                                                                             height=161)),
                                                     ]
                                            )
         line_bot_api.reply_message(event.reply_token, stageMessage)
-    elif '(1)關燈：' in msg:
+    elif '(1)關燈' in msg:
         stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/yASWBYr.png',
                                            alt_text='room_1_close',
                                            base_size=BaseSize(height=1024, width=1024),
-                                           actions=[MessageImagemapAction(text='(1)地板小卡：',
+                                           actions=[MessageImagemapAction(text='(1)地板小卡',
                                                                           area=ImagemapArea(x=195, y=890, width=158,
                                                                                             height=105)),
-                                                    MessageImagemapAction(text='(1)開燈：',
+                                                    MessageImagemapAction(text='(1)開燈',
                                                                           area=ImagemapArea(x=898, y=449, width=118,
                                                                                             height=161)),
                                                     ]
                                            )
         line_bot_api.reply_message(event.reply_token, stageMessage)
-    elif '(1)地板小卡：' in msg:
+    elif '(1)地板小卡' in msg:
         message = ImageSendMessage(original_content_url='https://i.imgur.com/mer9ofa.png',
                                    preview_image_url='https://i.imgur.com/mer9ofa.png')
         line_bot_api.reply_message(event.reply_token, message)
+
+    # 第二關內容
+    elif '進入：MARKET...?' in msg:
+        # 此處需要用到SQL來確認玩家是否處在第二關
+        stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/9BqvJZc.png',
+                                           alt_text='room_1_close',
+                                           base_size=BaseSize(height=1024, width=1024),
+                                           actions=[MessageImagemapAction(text='(2)牆上的照片',
+                                                                          area=ImagemapArea(x=8, y=223, width=144,
+                                                                                            height=519)),
+                                                    MessageImagemapAction(text='(2)書架',
+                                                                          area=ImagemapArea(x=169, y=239, width=296,
+                                                                                            height=394)),
+                                                    MessageImagemapAction(text='(2)陳列架',
+                                                                          area=ImagemapArea(x=888, y=322, width=149,
+                                                                                            height=367)),
+                                                    ]
+                                           )
+        line_bot_api.reply_message(event.reply_token, stageMessage)
+    elif '(2)牆上的照片' in msg:
+        imagemapMessage = ImagemapSendMessage(base_url='https://i.imgur.com/b8acXSM.png',
+                                              alt_text='room_1_close',
+                                              base_size=BaseSize(height=700, width=600),
+                                              actions=[MessageImagemapAction(text='(2)照片後的黃紙',
+                                                                             area=ImagemapArea(x=480, y=531, width=85,
+                                                                                               height=119))
+                                                       ]
+                                              )
+        line_bot_api.reply_message(event.reply_token, imagemapMessage)
+    elif '(2)照片後的黃紙' in msg:
+        replyArray = []
+        replyArray.append(ImageSendMessage(original_content_url='https://i.imgur.com/oAvS1BB.png',
+                                           preview_image_url='https://i.imgur.com/oAvS1BB.png'))
+        replyArray.append(TextSendMessage(text="GDP 國內生產總值(Gross Domestic Product)\n指一個國家在一定時期內生產的所有商品和服務的價值總和。"))
+        replyArray.append(AudioSendMessage(
+            original_content_url='https://files.soundoftext.com/61f41240-58be-11ee-a44a-8501b7b1aefa.mp3',
+            duration=3000))
+        line_bot_api.reply_message(event.reply_token, replyArray)
+        replyArray.clear()
+    elif '(2)書架' in msg:
+        message = ImageSendMessage(original_content_url='https://i.imgur.com/WofIzXf.png',
+                                   preview_image_url='https://i.imgur.com/WofIzXf.png')
+        line_bot_api.reply_message(event.reply_token, message)
+    elif '(2)陳列架' in msg:
+        message = ImageSendMessage(original_content_url='https://i.imgur.com/paVuOhm.png',
+                                   preview_image_url='https://i.imgur.com/paVuOhm.png')
+        line_bot_api.reply_message(event.reply_token, message)
+
+    # 第三關內容
     elif 'Open the door!' in msg:
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請打：門的密碼是：<密碼> )"))
@@ -193,6 +245,7 @@ def handle_message(event):
                 original_content_url='https://files.soundoftext.com/ad64dd70-67df-11ed-a44a-8501b7b1aefa.mp3',
                 duration=1000))
             line_bot_api.reply_message(event.reply_token, replyArray)
+            replyArray.clear()
         except Exception as e:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=str(e)))
     else:
