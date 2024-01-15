@@ -139,7 +139,7 @@ def handle_message(event):
         # 此處需要用到SQL來確認玩家是否處在第一關
         stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/CIe6qtf.png',
                                            alt_text='room_1_opne',
-                                           base_size=BaseSize(height=1024, width=1024),
+                                           base_size=BaseSize(height=1040, width=1040),
                                            actions=[MessageImagemapAction(text='(1)地板小卡',
                                                                           area=ImagemapArea(x=195, y=890, width=158,
                                                                                             height=105)),
@@ -152,7 +152,7 @@ def handle_message(event):
     elif '(1)開燈' in msg:
         stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/CIe6qtf.png',
                                            alt_text='room_1_opne',
-                                           base_size=BaseSize(height=1024, width=1024),
+                                           base_size=BaseSize(height=1040, width=1040),
                                            actions=[MessageImagemapAction(text='(1)地板小卡',
                                                                           area=ImagemapArea(x=195, y=890, width=158,
                                                                                             height=105)),
@@ -165,7 +165,7 @@ def handle_message(event):
     elif '(1)關燈' in msg:
         stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/yASWBYr.png',
                                            alt_text='room_1_close',
-                                           base_size=BaseSize(height=1024, width=1024),
+                                           base_size=BaseSize(height=1040, width=1040),
                                            actions=[MessageImagemapAction(text='(1)地板小卡',
                                                                           area=ImagemapArea(x=195, y=890, width=158,
                                                                                             height=105)),
@@ -184,8 +184,8 @@ def handle_message(event):
     elif '進入：MARKET...?' in msg:
         # 此處需要用到SQL來確認玩家是否處在第二關
         stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/9BqvJZc.png',
-                                           alt_text='room_1_close',
-                                           base_size=BaseSize(height=1024, width=1024),
+                                           alt_text='room_2',
+                                           base_size=BaseSize(height=1040, width=1040),
                                            actions=[MessageImagemapAction(text='(2)牆上的照片',
                                                                           area=ImagemapArea(x=8, y=223, width=144,
                                                                                             height=519)),
@@ -199,9 +199,10 @@ def handle_message(event):
                                            )
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(2)牆上的照片' in msg:
+        # 照片要修正成寬度1040
         imagemapMessage = ImagemapSendMessage(base_url='https://i.imgur.com/b8acXSM.png',
-                                              alt_text='room_1_close',
-                                              base_size=BaseSize(height=700, width=600),
+                                              alt_text='room_2_picture',
+                                              base_size=BaseSize(height=600, width=700),
                                               actions=[MessageImagemapAction(text='(2)照片後的黃紙',
                                                                              area=ImagemapArea(x=480, y=531, width=85,
                                                                                                height=119))
@@ -228,6 +229,35 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
 
     # 第三關內容
+    elif '進入：機房' in msg:
+        # 此處需要用到SQL來確認玩家是否處在第三關
+        stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/71MDD45.png',
+                                           alt_text='room_3',
+                                           base_size=BaseSize(height=1040, width=1040),
+                                           actions=[MessageImagemapAction(text='(3)電腦',
+                                                                          area=ImagemapArea(x=165, y=436, width=224,
+                                                                                            height=175)),
+                                                    MessageImagemapAction(text='(3)桌上的紙',
+                                                                          area=ImagemapArea(x=386, y=553, width=120,
+                                                                                            height=75)),
+                                                    MessageImagemapAction(text='(3)打開抽屜',
+                                                                          area=ImagemapArea(x=385, y=636, width=124,
+                                                                                            height=218)),
+                                                    ]
+                                           )
+        line_bot_api.reply_message(event.reply_token, stageMessage)
+    elif '(3)電腦' in msg:
+        message = ImageSendMessage(original_content_url='https://i.imgur.com/M0JjBY6.png',
+                                   preview_image_url='https://i.imgur.com/M0JjBY6.png')
+        line_bot_api.reply_message(event.reply_token, message)
+    elif '(3)桌上的紙' in msg:
+        message = ImageSendMessage(original_content_url='https://i.imgur.com/h0bBBQV.png',
+                                   preview_image_url='https://i.imgur.com/h0bBBQV.png')
+        line_bot_api.reply_message(event.reply_token, message)
+    elif '(3)打開抽屜' in msg:
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text="(這裡會用ImageMapg實作)"))
+
     elif 'Open the door!' in msg:
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請打：門的密碼是：<密碼> )"))
