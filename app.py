@@ -114,6 +114,7 @@ def handle_message(event):
                                                               )
                                                               )
         line_bot_api.reply_message(event.reply_token, story_carousel_template_message)
+    # 劇情
     elif '(0-1)國仁說：' in msg:
         talkAbout = '國仁：\n最近剛賺了一筆，手上的閒置資金不知道要做什麼？你不理財，財不理你，閒著也是閒著，不如去銀行詢問理財專員吧！'
         guoSay = TextSendMessage(text=talkAbout)
@@ -130,15 +131,60 @@ def handle_message(event):
         talkAbout = '國仁：\n咦？怎麼會有一扇門是開著的？這家銀行的控管誒太鬆散了吧！如果我偷偷跑進去應該也不會怎樣吧，反正銀行現在連半個人都沒有。'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
+    # 第一關內容
     elif '進入：開著的房間' in msg:
-        line_bot_api.reply_message(event.reply_token,
-                                   TextSendMessage(text="(這邊使用ImageMap來製作關卡。)"))
+        # 此處需要用到SQL來確認玩家是否處在第一關
+        stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/CIe6qtf.png',
+                                           alt_text='room_1_opne',
+                                           base_size=BaseSize(height=1024, width=1024),
+                                           actions=[MessageImagemapAction(text='(1)地板小卡：',
+                                                                          area=ImagemapArea(x=195, y=890, width=158,
+                                                                                            height=105)),
+                                                    MessageImagemapAction(text='(1)關燈：',
+                                                                          area=ImagemapArea(x=898, y=449, width=118,
+                                                                                            height=161)),
+                                                    ]
+                                           )
+        line_bot_api.reply_message(event.reply_token, stageMessage)
+    elif '(1)開燈：' in msg:
+        stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/CIe6qtf.png',
+                                           alt_text='room_1_opne',
+                                           base_size=BaseSize(height=1024, width=1024),
+                                           actions=[MessageImagemapAction(text='(1)地板小卡：',
+                                                                          area=ImagemapArea(x=195, y=890, width=158,
+                                                                                            height=105)),
+                                                    MessageImagemapAction(text='(1)關燈：',
+                                                                          area=ImagemapArea(x=898, y=449, width=118,
+                                                                                            height=161)),
+                                                    ]
+                                           )
+        line_bot_api.reply_message(event.reply_token, stageMessage)
+    elif '(1)關燈：' in msg:
+        stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/yASWBYr.png',
+                                           alt_text='room_1_close',
+                                           base_size=BaseSize(height=1024, width=1024),
+                                           actions=[MessageImagemapAction(text='(1)地板小卡：',
+                                                                          area=ImagemapArea(x=195, y=890, width=158,
+                                                                                            height=105)),
+                                                    MessageImagemapAction(text='(1)開燈：',
+                                                                          area=ImagemapArea(x=898, y=449, width=118,
+                                                                                            height=161)),
+                                                    ]
+                                           )
+        line_bot_api.reply_message(event.reply_token, stageMessage)
+    elif '(1)地板小卡：' in msg:
+        message = ImageSendMessage(original_content_url='https://i.imgur.com/mer9ofa.png',
+                                   preview_image_url='https://i.imgur.com/mer9ofa.png')
+        line_bot_api.reply_message(event.reply_token, message)
     elif 'Open the door!' in msg:
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請打：門的密碼是：<密碼> )"))
     elif '門的密碼是' in msg:
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(text="(這邊就會去資料庫判斷玩家的關卡去撈答案出來比對)"))
+    elif '<<<左滑<<<' in msg:
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text="左滑看故事"))
     elif 'inflation' in msg:
         try:
             replyArray = []
