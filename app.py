@@ -200,12 +200,12 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(2)牆上的照片' in msg:
         # 照片要修正成寬度1040
-        imagemapMessage = ImagemapSendMessage(base_url='https://i.imgur.com/b8acXSM.png',
+        imagemapMessage = ImagemapSendMessage(base_url='https://i.imgur.com/1EnVfrM.png',
                                               alt_text='room_2_picture',
-                                              base_size=BaseSize(height=600, width=700),
+                                              base_size=BaseSize(height=1040, width=1040),
                                               actions=[MessageImagemapAction(text='(2)照片後的黃紙',
-                                                                             area=ImagemapArea(x=480, y=531, width=85,
-                                                                                               height=119))
+                                                                             area=ImagemapArea(x=678, y=690, width=85,
+                                                                                               height=125))
                                                        ]
                                               )
         line_bot_api.reply_message(event.reply_token, imagemapMessage)
@@ -247,6 +247,7 @@ def handle_message(event):
                                            )
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(3)電腦' in msg:
+        #電腦需要顯示文字(如輸入以及密碼提示)
         message = ImageSendMessage(original_content_url='https://i.imgur.com/M0JjBY6.png',
                                    preview_image_url='https://i.imgur.com/M0JjBY6.png')
         line_bot_api.reply_message(event.reply_token, message)
