@@ -145,7 +145,7 @@ def handle_message(event):
                                                                                             height=105)),
                                                     MessageImagemapAction(text='(1)關燈',
                                                                           area=ImagemapArea(x=898, y=449, width=118,
-                                                                                            height=161)),
+                                                                                            height=161))
                                                     ]
                                            )
         line_bot_api.reply_message(event.reply_token, stageMessage)
@@ -158,7 +158,7 @@ def handle_message(event):
                                                                                             height=105)),
                                                     MessageImagemapAction(text='(1)關燈',
                                                                           area=ImagemapArea(x=898, y=449, width=118,
-                                                                                            height=161)),
+                                                                                            height=161))
                                                     ]
                                            )
         line_bot_api.reply_message(event.reply_token, stageMessage)
@@ -171,7 +171,7 @@ def handle_message(event):
                                                                                             height=105)),
                                                     MessageImagemapAction(text='(1)開燈',
                                                                           area=ImagemapArea(x=898, y=449, width=118,
-                                                                                            height=161)),
+                                                                                            height=161))
                                                     ]
                                            )
         line_bot_api.reply_message(event.reply_token, stageMessage)
@@ -194,7 +194,7 @@ def handle_message(event):
                                                                                             height=394)),
                                                     MessageImagemapAction(text='(2)陳列架',
                                                                           area=ImagemapArea(x=888, y=322, width=149,
-                                                                                            height=367)),
+                                                                                            height=367))
                                                     ]
                                            )
         line_bot_api.reply_message(event.reply_token, stageMessage)
@@ -213,7 +213,8 @@ def handle_message(event):
         replyArray = []
         replyArray.append(ImageSendMessage(original_content_url='https://i.imgur.com/oAvS1BB.png',
                                            preview_image_url='https://i.imgur.com/oAvS1BB.png'))
-        replyArray.append(TextSendMessage(text="GDP 國內生產總值(Gross Domestic Product)\n指一個國家在一定時期內生產的所有商品和服務的價值總和。"))
+        replyArray.append(TextSendMessage(
+            text="GDP 國內生產總值(Gross Domestic Product)\n指一個國家在一定時期內生產的所有商品和服務的價值總和。"))
         replyArray.append(AudioSendMessage(
             original_content_url='https://files.soundoftext.com/61f41240-58be-11ee-a44a-8501b7b1aefa.mp3',
             duration=3000))
@@ -242,29 +243,46 @@ def handle_message(event):
                                                                                             height=75)),
                                                     MessageImagemapAction(text='(3)打開抽屜',
                                                                           area=ImagemapArea(x=385, y=636, width=124,
-                                                                                            height=218)),
+                                                                                            height=218))
                                                     ]
                                            )
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(3)電腦' in msg:
-        #電腦需要顯示文字(如輸入以及密碼提示)
-        message = ImageSendMessage(original_content_url='https://i.imgur.com/M0JjBY6.png',
-                                   preview_image_url='https://i.imgur.com/M0JjBY6.png')
-        line_bot_api.reply_message(event.reply_token, message)
+        # 電腦需要顯示文字(如輸入以及密碼提示)
+        replyArray = []
+        replyArray.append(ImageSendMessage(original_content_url='https://i.imgur.com/M0JjBY6.png',
+                                           preview_image_url='https://i.imgur.com/M0JjBY6.png'))
+        replyArray.append(TextSendMessage(text="你知道電腦的密碼嗎？\n(輸入密碼時請打：電腦的密碼是：<密碼>)"))
+        line_bot_api.reply_message(event.reply_token, replyArray)
+        replyArray.clear()
     elif '(3)桌上的紙' in msg:
         message = ImageSendMessage(original_content_url='https://i.imgur.com/h0bBBQV.png',
                                    preview_image_url='https://i.imgur.com/h0bBBQV.png')
         line_bot_api.reply_message(event.reply_token, message)
     elif '(3)打開抽屜' in msg:
+        imagemapMessage = ImagemapSendMessage(base_url='https://i.imgur.com/9MCsd0J.png',
+                                              alt_text='room_3_drawer',
+                                              base_size=BaseSize(height=1040, width=1040),
+                                              actions=[MessageImagemapAction(text='(3)抽屜裡的東西',
+                                                                             area=ImagemapArea(x=410, y=180, width=567,
+                                                                                               height=475))
+                                                       ]
+                                              )
+        line_bot_api.reply_message(event.reply_token, imagemapMessage)
+    elif '(3)抽屜裡的東西' in msg:
         line_bot_api.reply_message(event.reply_token,
-                                   TextSendMessage(text="(這裡會用ImageMapg實作)"))
-
+                                   TextSendMessage(text="(這邊會用到組合的message去做)"))
+    # 其他控制選項
     elif 'Open the door!' in msg:
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請打：門的密碼是：<密碼> )"))
     elif '門的密碼是' in msg:
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(text="(這邊就會去資料庫判斷玩家的關卡去撈答案出來比對)"))
+    elif '電腦的密碼是' in msg:
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(
+                                       text="(這邊就會去判斷電腦的密碼後，給予相對應的回覆，正確就是圖片，錯誤就是文字)"))
     elif '<<<左滑<<<' in msg:
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(text="左滑看故事"))
