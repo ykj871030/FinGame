@@ -130,7 +130,7 @@ def handle_message(event):
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
     elif '(0-4)國仁說：' in msg:
-        talkAbout = '國仁：\n咦？怎麼會有一扇門是開著的？這家銀行的控管誒太鬆散了吧！如果我偷偷跑進去應該也不會怎樣吧，反正銀行現在連半個人都沒有。'
+        talkAbout = '國仁：\n咦？怎麼會有一扇門是開著的？這家銀行的控管也太鬆散了吧！如果我偷偷跑進去應該也不會怎樣吧，反正銀行現在連半個人都沒有。'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
 
@@ -199,7 +199,6 @@ def handle_message(event):
                                            )
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(2)牆上的照片' in msg:
-        # 照片要修正成寬度1040
         imagemapMessage = ImagemapSendMessage(base_url='https://i.imgur.com/1EnVfrM.png',
                                               alt_text='room_2_picture',
                                               base_size=BaseSize(height=1040, width=1040),
@@ -252,7 +251,7 @@ def handle_message(event):
         replyArray = []
         replyArray.append(ImageSendMessage(original_content_url='https://i.imgur.com/M0JjBY6.png',
                                            preview_image_url='https://i.imgur.com/M0JjBY6.png'))
-        replyArray.append(TextSendMessage(text="你知道電腦的密碼嗎？\n(輸入密碼時請打：電腦的密碼是：<密碼>)"))
+        replyArray.append(TextSendMessage(text="你知道電腦的密碼嗎？\n(輸入密碼時請輸入：\n電腦的密碼是：XXXXX)"))
         line_bot_api.reply_message(event.reply_token, replyArray)
         replyArray.clear()
     elif '(3)桌上的紙' in msg:
@@ -270,12 +269,29 @@ def handle_message(event):
                                               )
         line_bot_api.reply_message(event.reply_token, imagemapMessage)
     elif '(3)抽屜裡的東西' in msg:
-        line_bot_api.reply_message(event.reply_token,
-                                   TextSendMessage(text="(這邊會用到組合的message去做)"))
+        replyArray = []
+        replyArray.append(ImageSendMessage(original_content_url='https://i.imgur.com/GSkijUS.png',
+                                           preview_image_url='https://i.imgur.com/GSkijUS.png'))
+        replyArray.append(TemplateSendMessage(alt_text='room_3_Bplate',
+                                              template=ButtonsTemplate(title='是一個有奇怪記號的...墊板？',
+                                                                       text="總感覺疊在桌上的紙上面會發現什麼訊息，要疊上去嗎？",
+                                                                       actions=[MessageAction(label="要",
+                                                                                              text="(3)將墊板疊在紙上"
+                                                                                              ),
+                                                                                MessageAction(label="不要",
+                                                                                              text="(3)不疊"
+                                                                                              )
+                                                                                ]
+                                                                       )
+                                              )
+                          )
+        line_bot_api.reply_message(event.reply_token, replyArray)
+        replyArray.clear()
+        
     # 其他控制選項
     elif 'Open the door!' in msg:
         line_bot_api.reply_message(event.reply_token,
-                                   TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請打：門的密碼是：<密碼> )"))
+                                   TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請輸入：\n門的密碼是：XXXXX)"))
     elif '門的密碼是' in msg:
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(text="(這邊就會去資料庫判斷玩家的關卡去撈答案出來比對)"))
