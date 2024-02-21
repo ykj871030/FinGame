@@ -287,7 +287,14 @@ def handle_message(event):
                           )
         line_bot_api.reply_message(event.reply_token, replyArray)
         replyArray.clear()
-        
+
+    elif '(3)將墊板疊在紙上' in msg:
+        message = ImageSendMessage(original_content_url='https://i.imgur.com/RptQK1X.png',
+                                   preview_image_url='https://i.imgur.com/RptQK1X.png')
+        line_bot_api.reply_message(event.reply_token, message)
+    elif '(3)不疊' in msg:
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text="(將墊板放回抽屜裡...)"))
     # 其他控制選項
     elif 'Open the door!' in msg:
         line_bot_api.reply_message(event.reply_token,
