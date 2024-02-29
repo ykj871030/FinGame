@@ -1,3 +1,4 @@
+# ======呼叫所需的函式庫==========
 from flask import Flask, request, abort
 
 from linebot import (
@@ -10,19 +11,14 @@ from linebot.models import *
 
 from linebot.exceptions import LineBotApiError
 
-# ======這裡是呼叫的檔案內容=====
-# from message import *
-# from new import *
-# from Function import *
-# ======這裡是呼叫的檔案內容=====
-
-# ======python的函數庫==========
 import tempfile, os
 import datetime
 import time
 
-# ======python的函數庫==========
+# 使用psycopg2來連接Postgresql
+import psycopg2
 
+# ======宣告全域變數==========
 app = Flask(__name__)
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 # Channel Access Token
@@ -30,6 +26,45 @@ line_bot_api = LineBotApi(
     'UJggamRStWntuURfiKYyCfwHKEI+7+28Mv7ZXYsiR+97FGzDMhpVXjibBYis3bFXTfTj4JCb5ufwFty7v+nI9FfwrXbMWrUWd6r0cYMGlzyyB/yXJ2szb9cui6hgih+D+vo5UHk37+ENPcNRIy9lzAdB04t89/1O/w1cDnyilFU=')
 # Channel Secret
 handler = WebhookHandler('b202c38b2526a4ca07fec24075461cf4')
+
+# 設置連線PostgreSQL時所需參數
+db_name = "fin_game"
+db_user = "fin_game_user"
+db_password = "ctS3MTDp4lg6x7rcwtYEJDUs2sfqrr6T"
+db_host = "dpg-cmdkqnocmk4c73alfs20-a.singapore-postgres.render.com"
+db_port = 5432
+
+
+# 建立連線函式庫(CREATE, INSERT, UPDATE, ALTER, DELETE用)
+def postgreSQLConnect(command):
+    # 建立連接
+    with psycopg2.connect(database=db_name, user=db_user, password=db_password, host=db_host, port=db_port) as conn:
+        with conn.cursor() as cur:
+            # 建立游標
+            cur = conn.cursor()
+            # 建立SQL指令
+            sql_command = command
+            # 執行指令
+            cur.execute(sql_command)
+        # 提交
+        conn.commit()
+
+
+# 建立連線函式庫(SELECT用)
+def postgreSQLSelect(command):
+    # 建立連接
+    with psycopg2.connect(database=db_name, user=db_user, password=db_password, host=db_host, port=db_port) as conn:
+        with conn.cursor() as cur:
+            # 建立游標
+            cur = conn.cursor()
+            # 建立SQL指令
+            sql_command = command
+            # 執行指令
+            cur.execute(sql_command)
+            # 將查詢結果儲存
+            row = cur.fetchall()
+    # 回傳查詢結果
+    return row
 
 
 # 監聽所有來自 /callback 的 Post Request
@@ -356,9 +391,17 @@ def handle_message(event):
 def welcome(event):
     userID = str(event.source.user_id)
     userName = line_bot_api.get_profile(userID).display_name
-    message = TextSendMessage(
-        text=f'{userName} 您好，歡迎你加入Fin Game！\n你將會在Fin Game的世界學到\n有關金融報導的英文單字。\n若你已經準備好的話，請輸入「開始遊戲」吧！')
-    line_bot_api.reply_message(event.reply_token, message)
+    try:
+        query = f'SELECT * FROM user_info WHERE userid=\'{userID}\''
+        datas=postgreSQLSelect(query)
+        if len(datas) == 0:
+            addUserSQL = f'INSERT INTO user_info(user_id, user_name, user_stage) VALUES(\'{userID}\',\'{userName}\',0);'
+            postgreSQLConnect(addUserSQL)
+        message = TextSendMessage(
+            text=f'{userName} 您好，歡迎你加入Fin Game！\n你將會在Fin Game的世界學到\n有關金融報導的英文單字。\n若你已經準備好的話，請輸入「開始遊戲」吧！')
+        line_bot_api.reply_message(event.reply_token, message)
+    except Exception as e:
+        app.logger.error(f'Create user information error:{e}')
 
 
 import os
