@@ -392,7 +392,7 @@ def welcome(event):
     userID = str(event.source.user_id)
     userName = line_bot_api.get_profile(userID).display_name
     try:
-        query = f'SELECT * FROM user_info WHERE userid=\'{userID}\''
+        query = f'SELECT * FROM user_info WHERE user_id=\'{userID}\''
         datas=postgreSQLSelect(query)
         if len(datas) == 0:
             addUserSQL = f'INSERT INTO user_info(user_id, user_name, user_stage) VALUES(\'{userID}\',\'{userName}\',0);'
