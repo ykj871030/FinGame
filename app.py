@@ -194,17 +194,26 @@ def handle_message(event):
                                            )
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(1)開燈' in msg:
-        stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/CIe6qtf.png',
-                                           alt_text='room_1_opne',
-                                           base_size=BaseSize(height=1040, width=1040),
-                                           actions=[MessageImagemapAction(text='(1)地板小卡',
-                                                                          area=ImagemapArea(x=195, y=890, width=158,
-                                                                                            height=105)),
-                                                    MessageImagemapAction(text='(1)關燈',
-                                                                          area=ImagemapArea(x=898, y=449, width=118,
-                                                                                            height=161))
-                                                    ]
-                                           )
+        # 要確認玩家是否在第一關
+        userID = str(event.source.user_id)
+        getUserStageStatus = f'SELECT user_stage FROM user_info WHERE user_id=\'{userID}\''
+        datas = postgreSQLSelect(getUserStageStatus)
+        if datas[0][0] == 1:
+            stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/CIe6qtf.png',
+                                               alt_text='room_1_opne',
+                                               base_size=BaseSize(height=1040, width=1040),
+                                               actions=[MessageImagemapAction(text='(1)地板小卡',
+                                                                              area=ImagemapArea(x=195, y=890, width=158,
+                                                                                                height=105)),
+                                                        MessageImagemapAction(text='(1)關燈',
+                                                                              area=ImagemapArea(x=898, y=449, width=118,
+                                                                                                height=161))
+                                                        ]
+                                               )
+        elif datas[0][0] == 0:
+            stageMessage = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+        else:
+            stageMessage = TextSendMessage(text='國仁：\n嗯......')
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(1)關燈' in msg:
         stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/yASWBYr.png',
