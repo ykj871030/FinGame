@@ -72,6 +72,11 @@ def updateUserStage(stage, userID):
     updateStageStatus = f'UPDATE user_info SET user_stage={stage} WHERE user_id=\'{userID}\''
     postgreSQLConnect(updateStageStatus)
 
+# 取得使用者所在關卡
+def getUserStage(userID):
+    getUserStage = f'SELECT user_stage FROM user_info WHERE user_id=\'{userID}\''
+    datas = postgreSQLSelect(getUserStage)
+    return datas[0][0]
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -179,7 +184,6 @@ def handle_message(event):
     elif '進入：開著的房間' in msg:
         # 將玩家關卡狀態更新為1
         stage = 1
-        userID = str(event.source.user_id)
         updateUserStage(stage, userID)
         stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/CIe6qtf.png',
                                            alt_text='room_1_opne',
@@ -195,10 +199,8 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(1)開燈' in msg:
         # 要確認玩家是否在第一關
-        userID = str(event.source.user_id)
-        getUserStageStatus = f'SELECT user_stage FROM user_info WHERE user_id=\'{userID}\''
-        datas = postgreSQLSelect(getUserStageStatus)
-        if datas[0][0] == 1:
+        userStage=getUserStage(userID)
+        if userStage == 1:
             stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/CIe6qtf.png',
                                                alt_text='room_1_opne',
                                                base_size=BaseSize(height=1040, width=1040),
@@ -210,151 +212,263 @@ def handle_message(event):
                                                                                                 height=161))
                                                         ]
                                                )
-        elif datas[0][0] == 0:
+        elif userStage == 0:
             stageMessage = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
         else:
-            stageMessage = TextSendMessage(text='國仁：\n嗯......')
+            stageMessage = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(1)關燈' in msg:
-        stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/yASWBYr.png',
-                                           alt_text='room_1_close',
-                                           base_size=BaseSize(height=1040, width=1040),
-                                           actions=[MessageImagemapAction(text='(1)地板小卡',
-                                                                          area=ImagemapArea(x=195, y=890, width=158,
-                                                                                            height=105)),
-                                                    MessageImagemapAction(text='(1)開燈',
-                                                                          area=ImagemapArea(x=898, y=449, width=118,
-                                                                                            height=161))
-                                                    ]
-                                           )
+        # 要確認玩家是否在第一關
+        userStage=getUserStage(userID)
+        if userStage == 1:
+            stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/yASWBYr.png',
+                                               alt_text='room_1_close',
+                                               base_size=BaseSize(height=1040, width=1040),
+                                               actions=[MessageImagemapAction(text='(1)地板小卡',
+                                                                              area=ImagemapArea(x=195, y=890, width=158,
+                                                                                                height=105)),
+                                                        MessageImagemapAction(text='(1)開燈',
+                                                                              area=ImagemapArea(x=898, y=449, width=118,
+                                                                                                height=161))
+                                                        ]
+                                               )
+        elif userStage == 0:
+            stageMessage = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+        else:
+            stageMessage = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(1)地板小卡' in msg:
-        message = ImageSendMessage(original_content_url='https://i.imgur.com/mer9ofa.png',
-                                   preview_image_url='https://i.imgur.com/mer9ofa.png')
+        # 要確認玩家是否在第一關
+        userStage=getUserStage(userID)
+        if userStage == 1:
+            message = ImageSendMessage(original_content_url='https://i.imgur.com/mer9ofa.png',
+                                       preview_image_url='https://i.imgur.com/mer9ofa.png')
+        elif userStage == 0:
+            message = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+        else:
+            message = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, message)
 
     # 第二關內容
     elif '進入：MARKET...?' in msg:
-        # 此處需要用到SQL來確認玩家是否處在第二關
-        stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/9BqvJZc.png',
-                                           alt_text='room_2',
-                                           base_size=BaseSize(height=1040, width=1040),
-                                           actions=[MessageImagemapAction(text='(2)牆上的照片',
-                                                                          area=ImagemapArea(x=8, y=223, width=144,
-                                                                                            height=519)),
-                                                    MessageImagemapAction(text='(2)書架',
-                                                                          area=ImagemapArea(x=169, y=239, width=296,
-                                                                                            height=394)),
-                                                    MessageImagemapAction(text='(2)陳列架',
-                                                                          area=ImagemapArea(x=888, y=322, width=149,
-                                                                                            height=367))
-                                                    ]
-                                           )
+        # 要確認玩家是否在第二關
+        userStage=getUserStage(userID)
+        if userStage == 2:
+            stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/9BqvJZc.png',
+                                               alt_text='room_2',
+                                               base_size=BaseSize(height=1040, width=1040),
+                                               actions=[MessageImagemapAction(text='(2)牆上的照片',
+                                                                              area=ImagemapArea(x=8, y=223, width=144,
+                                                                                                height=519)),
+                                                        MessageImagemapAction(text='(2)書架',
+                                                                              area=ImagemapArea(x=169, y=239, width=296,
+                                                                                                height=394)),
+                                                        MessageImagemapAction(text='(2)陳列架',
+                                                                              area=ImagemapArea(x=888, y=322, width=149,
+                                                                                                height=367))
+                                                        ]
+                                               )
+        elif userStage == 0:
+            stageMessage = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+        else:
+            stageMessage = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(2)牆上的照片' in msg:
-        imagemapMessage = ImagemapSendMessage(base_url='https://i.imgur.com/1EnVfrM.png',
-                                              alt_text='room_2_picture',
-                                              base_size=BaseSize(height=1040, width=1040),
-                                              actions=[MessageImagemapAction(text='(2)照片後的黃紙',
-                                                                             area=ImagemapArea(x=678, y=690, width=85,
-                                                                                               height=125))
-                                                       ]
-                                              )
+        # 要確認玩家是否在第二關
+        userStage = getUserStage(userID)
+        if userStage == 2:
+            imagemapMessage = ImagemapSendMessage(base_url='https://i.imgur.com/1EnVfrM.png',
+                                                  alt_text='room_2_picture',
+                                                  base_size=BaseSize(height=1040, width=1040),
+                                                  actions=[MessageImagemapAction(text='(2)照片後的黃紙',
+                                                                                 area=ImagemapArea(x=678, y=690, width=85,
+                                                                                                   height=125))
+                                                           ]
+                                                  )
+        elif userStage == 0:
+            imagemapMessage = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+        else:
+            imagemapMessage = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, imagemapMessage)
     elif '(2)照片後的黃紙' in msg:
-        replyArray = []
-        replyArray.append(ImageSendMessage(original_content_url='https://i.imgur.com/oAvS1BB.png',
-                                           preview_image_url='https://i.imgur.com/oAvS1BB.png'))
-        replyArray.append(TextSendMessage(
-            text="GDP 國內生產總值(Gross Domestic Product)\n指一個國家在一定時期內生產的所有商品和服務的價值總和。"))
-        replyArray.append(AudioSendMessage(
-            original_content_url='https://files.soundoftext.com/61f41240-58be-11ee-a44a-8501b7b1aefa.mp3',
-            duration=3000))
-        line_bot_api.reply_message(event.reply_token, replyArray)
-        replyArray.clear()
+        # 要確認玩家是否在第二關
+        userStage = getUserStage(userID)
+        if userStage == 2:
+            replyArray = []
+            replyArray.append(ImageSendMessage(original_content_url='https://i.imgur.com/oAvS1BB.png',
+                                               preview_image_url='https://i.imgur.com/oAvS1BB.png'))
+            replyArray.append(TextSendMessage(
+                text="GDP 國內生產總值(Gross Domestic Product)\n指一個國家在一定時期內生產的所有商品和服務的價值總和。"))
+            replyArray.append(AudioSendMessage(
+                original_content_url='https://files.soundoftext.com/61f41240-58be-11ee-a44a-8501b7b1aefa.mp3',
+                duration=3000))
+            line_bot_api.reply_message(event.reply_token, replyArray)
+            replyArray.clear()
+        elif userStage == 0:
+            message = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+            line_bot_api.reply_message(event.reply_token, message)
+        else:
+            message = TextSendMessage(text='國仁：嗯......')
+            line_bot_api.reply_message(event.reply_token, message)
     elif '(2)書架' in msg:
-        message = ImageSendMessage(original_content_url='https://i.imgur.com/WofIzXf.png',
-                                   preview_image_url='https://i.imgur.com/WofIzXf.png')
+        # 要確認玩家是否在第二關
+        userStage = getUserStage(userID)
+        if userStage == 2:
+            message = ImageSendMessage(original_content_url='https://i.imgur.com/WofIzXf.png',
+                                       preview_image_url='https://i.imgur.com/WofIzXf.png')
+        elif userStage == 0:
+            message = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+        else:
+            message = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, message)
     elif '(2)陳列架' in msg:
-        message = ImageSendMessage(original_content_url='https://i.imgur.com/paVuOhm.png',
-                                   preview_image_url='https://i.imgur.com/paVuOhm.png')
+        # 要確認玩家是否在第二關
+        userStage = getUserStage(userID)
+        if userStage == 2:
+            message = ImageSendMessage(original_content_url='https://i.imgur.com/paVuOhm.png',
+                                       preview_image_url='https://i.imgur.com/paVuOhm.png')
+        elif userStage == 0:
+            message = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+        else:
+            message = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, message)
 
     # 第三關內容
     elif '進入：機房' in msg:
-        # 此處需要用到SQL來確認玩家是否處在第三關
-        stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/71MDD45.png',
-                                           alt_text='room_3',
-                                           base_size=BaseSize(height=1040, width=1040),
-                                           actions=[MessageImagemapAction(text='(3)電腦',
-                                                                          area=ImagemapArea(x=165, y=436, width=224,
-                                                                                            height=175)),
-                                                    MessageImagemapAction(text='(3)桌上的紙',
-                                                                          area=ImagemapArea(x=386, y=553, width=120,
-                                                                                            height=75)),
-                                                    MessageImagemapAction(text='(3)打開抽屜',
-                                                                          area=ImagemapArea(x=385, y=636, width=124,
-                                                                                            height=218))
-                                                    ]
-                                           )
+        # 要確認玩家是否在第三關
+        userStage = getUserStage(userID)
+        if userStage == 3:
+            stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/71MDD45.png',
+                                               alt_text='room_3',
+                                               base_size=BaseSize(height=1040, width=1040),
+                                               actions=[MessageImagemapAction(text='(3)電腦',
+                                                                              area=ImagemapArea(x=165, y=436, width=224,
+                                                                                                height=175)),
+                                                        MessageImagemapAction(text='(3)桌上的紙',
+                                                                              area=ImagemapArea(x=386, y=553, width=120,
+                                                                                                height=75)),
+                                                        MessageImagemapAction(text='(3)打開抽屜',
+                                                                              area=ImagemapArea(x=385, y=636, width=124,
+                                                                                                height=218))
+                                                        ]
+                                               )
+        elif userStage == 0:
+            stageMessage = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+        else:
+            stageMessage = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(3)電腦' in msg:
-        # 電腦需要顯示文字(如輸入以及密碼提示)
-        replyArray = []
-        replyArray.append(ImageSendMessage(original_content_url='https://i.imgur.com/M0JjBY6.png',
-                                           preview_image_url='https://i.imgur.com/M0JjBY6.png'))
-        replyArray.append(TextSendMessage(text="你知道電腦的密碼嗎？\n(輸入密碼時請輸入：\n電腦的密碼是 XXXXX)"))
-        line_bot_api.reply_message(event.reply_token, replyArray)
-        replyArray.clear()
+        # 要確認玩家是否在第三關
+        userStage = getUserStage(userID)
+        if userStage == 3:
+            replyArray = []
+            replyArray.append(ImageSendMessage(original_content_url='https://i.imgur.com/M0JjBY6.png',
+                                               preview_image_url='https://i.imgur.com/M0JjBY6.png'))
+            replyArray.append(TextSendMessage(text="你知道電腦的密碼嗎？\n(輸入密碼時請輸入：\n電腦的密碼是 XXXXX)"))
+            line_bot_api.reply_message(event.reply_token, replyArray)
+            replyArray.clear()
+        elif userStage == 0:
+            stageMessage = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+            line_bot_api.reply_message(event.reply_token, stageMessage)
+        else:
+            stageMessage = TextSendMessage(text='國仁：嗯......')
+            line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(3)桌上的紙' in msg:
-        message = ImageSendMessage(original_content_url='https://i.imgur.com/h0bBBQV.png',
-                                   preview_image_url='https://i.imgur.com/h0bBBQV.png')
+        # 要確認玩家是否在第三關
+        userStage = getUserStage(userID)
+        if userStage == 3:
+            message = ImageSendMessage(original_content_url='https://i.imgur.com/h0bBBQV.png',
+                                       preview_image_url='https://i.imgur.com/h0bBBQV.png')
+        elif userStage == 0:
+            message = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+        else:
+            message = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, message)
     elif '(3)打開抽屜' in msg:
-        imagemapMessage = ImagemapSendMessage(base_url='https://i.imgur.com/9MCsd0J.png',
-                                              alt_text='room_3_drawer',
-                                              base_size=BaseSize(height=1040, width=1040),
-                                              actions=[MessageImagemapAction(text='(3)抽屜裡的東西',
-                                                                             area=ImagemapArea(x=410, y=180, width=567,
-                                                                                               height=475))
-                                                       ]
-                                              )
+        # 要確認玩家是否在第三關
+        userStage = getUserStage(userID)
+        if userStage == 3:
+            imagemapMessage = ImagemapSendMessage(base_url='https://i.imgur.com/9MCsd0J.png',
+                                                  alt_text='room_3_drawer',
+                                                  base_size=BaseSize(height=1040, width=1040),
+                                                  actions=[MessageImagemapAction(text='(3)抽屜裡的東西',
+                                                                                 area=ImagemapArea(x=410, y=180, width=567,
+                                                                                                   height=475))
+                                                           ]
+                                                  )
+        elif userStage == 0:
+            imagemapMessage = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+        else:
+            imagemapMessage = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, imagemapMessage)
     elif '(3)抽屜裡的東西' in msg:
-        replyArray = []
-        replyArray.append(ImageSendMessage(original_content_url='https://i.imgur.com/GSkijUS.png',
-                                           preview_image_url='https://i.imgur.com/GSkijUS.png'))
-        replyArray.append(TemplateSendMessage(alt_text='room_3_Bplate',
-                                              template=ButtonsTemplate(title='是一個有奇怪記號的...墊板？',
-                                                                       text="總感覺疊在桌上的紙上面會發現什麼訊息，要疊上去嗎？",
-                                                                       actions=[MessageAction(label="要",
-                                                                                              text="(3)將墊板疊在紙上"
-                                                                                              ),
-                                                                                MessageAction(label="不要",
-                                                                                              text="(3)不疊"
-                                                                                              )
-                                                                                ]
-                                                                       )
-                                              )
-                          )
-        line_bot_api.reply_message(event.reply_token, replyArray)
-        replyArray.clear()
-
+        # 要確認玩家是否在第三關
+        userStage = getUserStage(userID)
+        if userStage == 3:
+            replyArray = []
+            replyArray.append(ImageSendMessage(original_content_url='https://i.imgur.com/GSkijUS.png',
+                                               preview_image_url='https://i.imgur.com/GSkijUS.png'))
+            replyArray.append(TemplateSendMessage(alt_text='room_3_Bplate',
+                                                  template=ButtonsTemplate(title='是一個有奇怪記號的...墊板？',
+                                                                           text="總感覺疊在桌上的紙上面會發現什麼訊息，要疊上去嗎？",
+                                                                           actions=[MessageAction(label="要",
+                                                                                                  text="(3)將墊板疊在紙上"
+                                                                                                  ),
+                                                                                    MessageAction(label="不要",
+                                                                                                  text="(3)不疊"
+                                                                                                  )
+                                                                                    ]
+                                                                           )
+                                                  )
+                              )
+            line_bot_api.reply_message(event.reply_token, replyArray)
+            replyArray.clear()
+        elif userStage == 0:
+            stageMessage = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+            line_bot_api.reply_message(event.reply_token, stageMessage)
+        else:
+            stageMessage = TextSendMessage(text='國仁：嗯......')
+            line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(3)將墊板疊在紙上' in msg:
-        message = ImageSendMessage(original_content_url='https://i.imgur.com/RptQK1X.png',
-                                   preview_image_url='https://i.imgur.com/RptQK1X.png')
+        # 要確認玩家是否在第三關
+        userStage = getUserStage(userID)
+        if userStage == 3:
+            message = ImageSendMessage(original_content_url='https://i.imgur.com/RptQK1X.png',
+                                       preview_image_url='https://i.imgur.com/RptQK1X.png')
+        elif userStage == 0:
+            message = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+        else:
+            message = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, message)
     elif '(3)不疊' in msg:
-        line_bot_api.reply_message(event.reply_token,
-                                   TextSendMessage(text="(將墊板放回抽屜裡...)"))
+        # 要確認玩家是否在第三關
+        userStage = getUserStage(userID)
+        if userStage == 3:
+            line_bot_api.reply_message(event.reply_token,
+                                       TextSendMessage(text="(將墊板放回抽屜裡...)"))
+        elif userStage == 0:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！'))
+        else:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='國仁：嗯......'))
     # 其他控制選項
     elif '開門！' in msg:
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請輸入：\n門的密碼是 XXXXX)"))
     elif '(國仁正思考著...)' in msg:
-        line_bot_api.reply_message(event.reply_token,
-                                   TextSendMessage(text="會去資料庫撈提示。"))
+        hintSQL = f'''
+        SELECT u.user_id, u.user_stage, s.hint
+        FROM user_info u LEFT JOIN stage_info s ON u.user_stage = s.stage
+        WHERE u.user_id = \'{userID}\'
+        '''
+        datas = postgreSQLSelect(hintSQL)
+        stage = datas[0][1]
+        if stage != 0:
+            hint = datas[0][2]
+            line_bot_api.reply_message(event.reply_token,
+                                       TextSendMessage(text=hint))
+        else:
+            line_bot_api.reply_message(event.reply_token,
+                                       TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！'))
     elif '門的密碼是' in msg:
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(text="(這邊就會去資料庫判斷玩家的關卡去撈答案出來比對)"))
