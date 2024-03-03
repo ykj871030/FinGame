@@ -462,13 +462,16 @@ def handle_message(event):
         '''
         datas = postgreSQLSelect(hintSQL)
         stage = datas[0][1]
-        if stage != 0:
+        if stage == 0:
+            line_bot_api.reply_message(event.reply_token,
+                                       TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！'))
+        elif stage == 4:
+            line_bot_api.reply_message(event.reply_token,
+                                       TextSendMessage(text='遊完後的複習功能。'))
+        else:
             hint = datas[0][2]
             line_bot_api.reply_message(event.reply_token,
                                        TextSendMessage(text=hint))
-        else:
-            line_bot_api.reply_message(event.reply_token,
-                                       TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！'))
     elif '門的密碼是' in msg:
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(text="(這邊就會去資料庫判斷玩家的關卡去撈答案出來比對)"))
