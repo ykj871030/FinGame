@@ -458,7 +458,7 @@ def handle_message(event):
         hintSQL = f'''
         SELECT u.user_id, u.user_stage, s.hint
         FROM user_info u LEFT JOIN stage_info s ON u.user_stage = s.stage
-        WHERE u.user_id = \'{userID}\'
+        WHERE u.user_id = '{userID}'
         '''
         datas = postgreSQLSelect(hintSQL)
         stage = datas[0][1]
@@ -473,8 +473,75 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token,
                                        TextSendMessage(text=hint))
     elif '門的密碼是' in msg:
-        line_bot_api.reply_message(event.reply_token,
-                                   TextSendMessage(text="(這邊就會去資料庫判斷玩家的關卡去撈答案出來比對)"))
+        answerSQL = f'''
+        SELECT u.user_id, u.user_stage, s.answer, v.vocabulary
+        FROM user_info u
+        LEFT JOIN stage_info s ON u.user_stage = s.stage
+        LEFT JOIN vocabulary_info v ON s.answer = v.no
+        WHERE u.user_id = '{userID}'
+        '''
+        datas = postgreSQLSelect(answerSQL)
+        stage = datas[0][1]
+        if stage == 0:
+            line_bot_api.reply_message(event.reply_token,
+                                       TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！'))
+        elif stage == 4:
+            line_bot_api.reply_message(event.reply_token,
+                                       TextSendMessage(text='遊完後的複習功能。'))
+        else:
+            replyArray = []
+            trueAnswer = datas[0][3]
+            ans = msg.split('是')[1]
+            ansRS = ans.strip()
+            # 去看玩家輸入的英文有沒有在單字庫裡
+            vocabularySQL = f'''
+            SELECT vocabulary, translate, meaning, speak_url, millisecond
+            FROM vocabulary_info
+            WHERE vocabulary = '{ansRS}'
+            '''
+            rows = postgreSQLSelect(vocabularySQL)
+            if len(rows) != 0:
+                voc = rows[0][0]
+                trans = rows[0][1]
+                mean = rows[0][2]
+                url = rows[0][3]
+                sec = rows[0][4]
+                replyArray.append(TextSendMessage(text=f"{voc} {trans}\n{mean}"))
+                replyArray.append(AudioSendMessage(original_content_url=url, duration=sec))
+
+            #判斷是否為答案
+            if ansRS == trueAnswer:
+                updateUserStage(stage+1, userID)
+                if stage == 3:
+                    replyArray.append(TemplateSendMessage(alt_text='open_door',
+                                                          template=ButtonsTemplate(title='門打開了！',
+                                                                                   text='門打開的瞬間，一道白光從門縫竄出，明顯的晃動也隨之而來...',
+                                                                                   actions=[
+                                                                                       MessageAction(label=trueAnswer,
+                                                                                                     text=trueAnswer
+                                                                                                     )
+                                                                                       ]
+                                                                                   )
+                                                          )
+                                      )
+                else:
+                    nextSQL = f"SELECT stage, stage_name FROM stage_info WHERE stage ='{stage+1}'"
+                    datas = postgreSQLSelect(nextSQL)
+                    stageName = datas[0][1]
+                    replyArray.append(TemplateSendMessage(alt_text='open_door',
+                                                          template=ButtonsTemplate(title='門打開了！',
+                                                                                   text='國仁：哇！沒想到我還蠻聰明的嘛！虧我想得到。',
+                                                                                   actions=[MessageAction(label="進入房間",
+                                                                                                          text=f'(3)進入：{stageName}'
+                                                                                                          )
+                                                                                            ]
+                                                                                   )
+                                                          )
+                                      )
+            else:
+                replyArray.append(TextSendMessage(text=f"密碼錯誤！請稍後再試"))
+            line_bot_api.reply_message(event.reply_token, replyArray)
+            replyArray.clear()
     elif '電腦的密碼是' in msg:
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(
