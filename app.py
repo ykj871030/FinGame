@@ -67,6 +67,12 @@ def postgreSQLSelect(command):
     return row
 
 
+# 更新使用者所在關卡
+def updateUserStage(stage, userID):
+    updateStageStatus = f'UPDATE user_info SET user_stage={stage} WHERE user_id=\'{userID}\''
+    postgreSQLConnect(updateStageStatus)
+
+
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -171,7 +177,10 @@ def handle_message(event):
 
     # 第一關內容
     elif '進入：開著的房間' in msg:
-        # 此處需要用到SQL來確認玩家是否處在第一關
+        # 將玩家關卡狀態更新為1
+        stage = 1
+        userID = str(event.source.user_id)
+        updateUserStage(stage, userID)
         stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/CIe6qtf.png',
                                            alt_text='room_1_opne',
                                            base_size=BaseSize(height=1040, width=1040),
@@ -286,7 +295,7 @@ def handle_message(event):
         replyArray = []
         replyArray.append(ImageSendMessage(original_content_url='https://i.imgur.com/M0JjBY6.png',
                                            preview_image_url='https://i.imgur.com/M0JjBY6.png'))
-        replyArray.append(TextSendMessage(text="你知道電腦的密碼嗎？\n(輸入密碼時請輸入：\n電腦的密碼是：XXXXX)"))
+        replyArray.append(TextSendMessage(text="你知道電腦的密碼嗎？\n(輸入密碼時請輸入：\n電腦的密碼是 XXXXX)"))
         line_bot_api.reply_message(event.reply_token, replyArray)
         replyArray.clear()
     elif '(3)桌上的紙' in msg:
@@ -331,9 +340,12 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(text="(將墊板放回抽屜裡...)"))
     # 其他控制選項
-    elif 'Open the door!' in msg:
+    elif '開門！' in msg:
         line_bot_api.reply_message(event.reply_token,
-                                   TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請輸入：\n門的密碼是：XXXXX)"))
+                                   TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請輸入：\n門的密碼是 XXXXX)"))
+    elif '(國仁正思考著...)' in msg:
+        line_bot_api.reply_message(event.reply_token,
+                                   TextSendMessage(text="會去資料庫撈提示。"))
     elif '門的密碼是' in msg:
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(text="(這邊就會去資料庫判斷玩家的關卡去撈答案出來比對)"))
@@ -393,7 +405,7 @@ def welcome(event):
     userName = line_bot_api.get_profile(userID).display_name
     try:
         query = f'SELECT * FROM user_info WHERE user_id=\'{userID}\''
-        datas=postgreSQLSelect(query)
+        datas = postgreSQLSelect(query)
         if len(datas) == 0:
             addUserSQL = f'INSERT INTO user_info(user_id, user_name, user_stage) VALUES(\'{userID}\',\'{userName}\',0);'
             postgreSQLConnect(addUserSQL)
