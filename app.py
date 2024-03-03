@@ -546,47 +546,63 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, replyArray)
             replyArray.clear()
     elif '電腦的密碼是' in msg:
-        line_bot_api.reply_message(event.reply_token,
-                                   TextSendMessage(
-                                       text="(這邊就會去判斷電腦的密碼後，給予相對應的回覆，正確就是圖片，錯誤就是文字)"))
+        computerSQL = f'''
+        SELECT u.user_id, u.user_stage, c.pwd, c.hint
+        FROM user_info u
+        LEFT JOIN computer_pwd c ON u.user_stage = c.stage
+        WHERE u.user_id = '{userID}'
+        '''
+        datas = postgreSQLSelect(computerSQL)
+        stage = datas[0][1]
+        truePwd = datas[0][2]
+        hint = datas[0][3]
+        if stage == 0:
+            line_bot_api.reply_message(event.reply_token,
+                                       TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！'))
+        elif stage == 4:
+            line_bot_api.reply_message(event.reply_token,
+                                       TextSendMessage(text='遊完後的複習功能。'))
+        elif stage == 3:
+            replyArray = []
+            pwd = msg.split('是')[1]
+            pwdRS = pwd.strip()
+
+            # 去看玩家輸入的英文有沒有在單字庫裡
+            vocabularySQL = f'''
+                        SELECT vocabulary, translate, meaning, speak_url, millisecond
+                        FROM vocabulary_info
+                        WHERE vocabulary = '{pwdRS}'
+                        '''
+            rows = postgreSQLSelect(vocabularySQL)
+            if len(rows) != 0:
+                voc = rows[0][0]
+                trans = rows[0][1]
+                mean = rows[0][2]
+                url = rows[0][3]
+                sec = rows[0][4]
+                replyArray.append(TextSendMessage(text=f"{voc} {trans}\n{mean}"))
+                replyArray.append(AudioSendMessage(original_content_url=url, duration=sec))
+            # 判斷是否為電腦密碼
+            if pwdRS == truePwd:
+                replyArray.append(ImageSendMessage(original_content_url='https://i.imgur.com/WmZVxZk.png',
+                                                   preview_image_url='https://i.imgur.com/WmZVxZk.png'))
+            else:
+                replyArray.append(TextSendMessage(text=f"密碼錯誤！請稍後再試"))
+                replyArray.append(TextSendMessage(text=f"{hint}"))
+            line_bot_api.reply_message(event.reply_token, replyArray)
+            replyArray.clear()
     elif '<<<左滑<<<' in msg:
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(text="左滑看故事"))
-    elif 'inflation' in msg:
-        try:
-            replyArray = []
-            replyArray.append(TextSendMessage(text="inflation 通膨\n一種經濟現象，指一段時間內物價上升的幅度。"))
-            replyArray.append(AudioSendMessage(
-                original_content_url='https://files.soundoftext.com/ad64dd70-67df-11ed-a44a-8501b7b1aefa.mp3',
-                duration=1000))
-            line_bot_api.reply_message(event.reply_token, replyArray)
-            replyArray.clear()
-        except Exception as e:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=str(e)))
     else:
-        sendContent = TextSendMessage(text=f'userID: {userID}\n{userName} 你說的是：\n{msg}嗎？')
-        line_bot_api.reply_message(event.reply_token, sendContent)
-    # if '最新合作廠商' in msg:
-    #     message = imagemap_message()
-    #     line_bot_api.reply_message(event.reply_token, message)
-    # elif '最新活動訊息' in msg:
-    #     message = buttons_message()
-    #     line_bot_api.reply_message(event.reply_token, message)
-    # elif '註冊會員' in msg:
-    #     message = Confirm_Template()
-    #     line_bot_api.reply_message(event.reply_token, message)
-    # elif '旋轉木馬' in msg:
-    #     message = Carousel_Template()
-    #     line_bot_api.reply_message(event.reply_token, message)
-    # elif '圖片畫廊' in msg:
-    #     message = test()
-    #     line_bot_api.reply_message(event.reply_token, message)
-    # elif '功能列表' in msg:
-    #     message = function_list()
-    #     line_bot_api.reply_message(event.reply_token, message)
-    # else:
-    #     message = TextSendMessage(text=msg)
-    #     line_bot_api.reply_message(event.reply_token, message)
+        userStage = getUserStage(userID)
+        if userStage == 0:
+            message = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+        elif userStage == 4:
+            message = TextSendMessage(text='遊完後的複習功能。')
+        else:
+            message = TextSendMessage(text='國仁：嗯......')
+        line_bot_api.reply_message(event.reply_token, message)
 
 
 @handler.add(PostbackEvent)
