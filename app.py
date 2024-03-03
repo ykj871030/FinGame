@@ -490,7 +490,10 @@ def handle_message(event):
                                        TextSendMessage(text='遊完後的複習功能。'))
         else:
             replyArray = []
-            trueAnswer = datas[0][3]
+            if stage == 3:
+                trueAnswer = datas[0][2]
+            else:
+                trueAnswer = datas[0][3]
             ans = msg.split('是')[1]
             ansRS = ans.strip()
             # 去看玩家輸入的英文有沒有在單字庫裡
@@ -532,7 +535,7 @@ def handle_message(event):
                                                           template=ButtonsTemplate(title='門打開了！',
                                                                                    text='國仁：哇！沒想到我還蠻聰明的嘛！虧我想得到。',
                                                                                    actions=[MessageAction(label="進入房間",
-                                                                                                          text=f'(3)進入：{stageName}'
+                                                                                                          text=f'進入：{stageName}'
                                                                                                           )
                                                                                             ]
                                                                                    )
