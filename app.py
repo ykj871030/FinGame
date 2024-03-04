@@ -456,7 +456,7 @@ def handle_message(event):
         if userStage == 0:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！'))
         elif userStage == 4:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='遊完後的複習功能。'))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='點擊圖文選單的「REVIEW」按鈕，複習一下在Fin Game學到的單字吧！'))
         else:
             line_bot_api.reply_message(event.reply_token,
                                        TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請輸入：\n門的密碼是 XXXXX)"))
@@ -473,7 +473,7 @@ def handle_message(event):
                                        TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！'))
         elif stage == 4:
             line_bot_api.reply_message(event.reply_token,
-                                       TextSendMessage(text='遊完後的複習功能。'))
+                                       TextSendMessage(text='點擊圖文選單的「REVIEW」按鈕，複習一下在Fin Game學到的單字吧！'))
         else:
             hint = datas[0][2]
             line_bot_api.reply_message(event.reply_token,
@@ -493,7 +493,7 @@ def handle_message(event):
                                        TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！'))
         elif stage == 4:
             line_bot_api.reply_message(event.reply_token,
-                                       TextSendMessage(text='遊完後的複習功能。'))
+                                       TextSendMessage(text='點擊圖文選單的「REVIEW」按鈕，複習一下在Fin Game學到的單字吧！'))
         else:
             replyArray = []
             if stage == 3:
@@ -640,13 +640,45 @@ def handle_message(event):
         else:
             message = TextSendMessage(text="(似乎有股莫名的力量正呼喚著國仁，但國仁不以為意...)")
         line_bot_api.reply_message(event.reply_token, message)
-    
+
+    #遊戲結尾
+    elif '(END-1)國仁說：' in msg:
+        userStage = getUserStage(userID)
+        if userStage == 0:
+            guoSay = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+        elif userStage == 4:
+            talkInTheEnd = '國仁：\n哇靠！原來我是睡著了！真假啦！有夠丟臉的......。我就想說難怪，哪有一個銀行的管控管那麼差的，原來只是夢。算了不重要，被妹子行員叫醒才比較重要，辦理手續先。'
+            guoSay = TextSendMessage(text=talkInTheEnd)
+        else:
+            guoSay = TextSendMessage(text='國仁：嗯......')
+        line_bot_api.reply_message(event.reply_token, guoSay)
+    elif '(END-1)國仁說：' in msg:
+        userStage = getUserStage(userID)
+        if userStage == 0:
+            guoSay = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+        elif userStage == 4:
+            talkInTheEnd = '國仁：\n哈哈！一切準備就緒！看好了世界，世界上第二個巴菲特即將橫空出世！我要準備衝擊金融市場啦！'
+            guoSay = TextSendMessage(text=talkInTheEnd)
+        else:
+            guoSay = TextSendMessage(text='國仁：嗯......')
+        line_bot_api.reply_message(event.reply_token, guoSay)
+    elif '遊戲結束' in msg:
+        userStage = getUserStage(userID)
+        if userStage == 0:
+            message = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+        elif userStage == 4:
+            message = TextSendMessage(text="恭喜你破關了！！！\n\n希望在遊玩的過程中有讓你學到一些基礎的金融英文單字，相信學會這些單字之後，對於未來讀財經英文新聞時會有所幫助。\n\n若想要複習這些單字的話，可以點選圖文選單的「REVIEW」按鈕，複習在在Fin Game學到的單字吧！\n\nFin Game在此感謝您的遊玩！")
+        else:
+            message = TextSendMessage(text='國仁：嗯......')
+        line_bot_api.reply_message(event.reply_token, message)
+        
+    #輸入其他文字的時候
     else:
         userStage = getUserStage(userID)
         if userStage == 0:
             message = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
         elif userStage == 4:
-            message = TextSendMessage(text='遊完後的複習功能。')
+            message = TextSendMessage(text='點擊圖文選單的「REVIEW」按鈕，複習一下在Fin Game學到的單字吧！')
         else:
             message = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, message)
