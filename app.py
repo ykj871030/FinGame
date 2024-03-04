@@ -102,6 +102,11 @@ def handle_message(event):
     userName = line_bot_api.get_profile(userID).display_name
     # 劇情_前情提要
     if '開始遊戲' in msg:
+        query = f'SELECT * FROM user_info WHERE user_id=\'{userID}\''
+        datas = postgreSQLSelect(query)
+        if len(datas) == 0:
+            addUserSQL = f'INSERT INTO user_info(user_id, user_name, user_stage) VALUES(\'{userID}\',\'{userName}\',0);'
+            postgreSQLConnect(addUserSQL)
         story_carousel_template_message = TemplateSendMessage(alt_text='Carousel template',
                                                               template=CarouselTemplate(columns=[
                                                                   CarouselColumn(
@@ -701,7 +706,7 @@ def welcome(event):
             addUserSQL = f'INSERT INTO user_info(user_id, user_name, user_stage) VALUES(\'{userID}\',\'{userName}\',0);'
             postgreSQLConnect(addUserSQL)
         message = TextSendMessage(
-            text=f'{userName} 您好，歡迎你加入Fin Game！\n你將會在Fin Game的世界學到\n有關金融報導的英文單字。\n在遊玩的過程中如果需要輸入答案或是需要提示的話，可以開啟圖文選單點選按鈕。\n如果太久沒有操作的話可能需要等待1分鐘左右再次操作才能正常運作。\n若你已經準備好的話，請輸入「開始遊戲」吧！')
+            text=f'{userName} 您好，歡迎你加入Fin Game！\n你將會在Fin Game的世界學到有關金融報導的英文單字。\n\n在遊玩的過程中如果需要輸入答案或是需要提示的話，可以開啟圖文選單點選按鈕。\n\n如果太久沒有操作的話可能需要等待1分鐘左右再次操作才能正常運作。\n\n若你已經準備好的話，\n請輸入「開始遊戲」吧！')
         line_bot_api.reply_message(event.reply_token, message)
     except Exception as e:
         app.logger.error(f'Create user information error:{e}')
