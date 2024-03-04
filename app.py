@@ -621,8 +621,8 @@ def handle_message(event):
                                                                           )
                                                                       ]
                                                                   ), CarouselColumn(
-                                                                      thumbnail_image_url='https://i.imgur.com/WJpKVKs.png',
-                                                                      title='國仁搖身一變成理財大師(自稱)。',
+                                                                      thumbnail_image_url='https://i.imgur.com/WJpKVks.png',
+                                                                      title='國仁搖身一變成為了理財大師(自稱)',
                                                                       text='辦理好手續的國仁即將進入金融投資市場，成為理財大師的那天指日可待了。',
                                                                       actions=[
                                                                           MessageAction(
