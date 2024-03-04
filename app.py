@@ -652,7 +652,7 @@ def handle_message(event):
         else:
             guoSay = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, guoSay)
-    elif '(END-1)國仁說：' in msg:
+    elif '(END-2)國仁說：' in msg:
         userStage = getUserStage(userID)
         if userStage == 0:
             guoSay = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
