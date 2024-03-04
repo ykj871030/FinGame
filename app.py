@@ -452,8 +452,14 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='國仁：嗯......'))
     # 其他控制選項
     elif '開門！' in msg:
-        line_bot_api.reply_message(event.reply_token,
-                                   TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請輸入：\n門的密碼是 XXXXX)"))
+        userStage = getUserStage(userID)
+        if userStage == 0:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！'))
+        elif userStage == 4:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='遊完後的複習功能。'))
+        else:
+            line_bot_api.reply_message(event.reply_token,
+                                       TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請輸入：\n門的密碼是 XXXXX)"))
     elif '(國仁正思考著...)' in msg:
         hintSQL = f'''
         SELECT u.user_id, u.user_stage, s.hint
@@ -491,11 +497,11 @@ def handle_message(event):
         else:
             replyArray = []
             if stage == 3:
-                trueAnswer = datas[0][2]
+                trueAnswer = datas[0][2].lower()
             else:
-                trueAnswer = datas[0][3]
+                trueAnswer = datas[0][3].lower()
             ans = msg.split('是')[1]
-            ansRS = ans.strip()
+            ansRS = ans.strip().lower()
             # 去看玩家輸入的英文有沒有在單字庫裡
             vocabularySQL = f'''
             SELECT vocabulary, translate, meaning, speak_url, millisecond
@@ -622,7 +628,7 @@ def welcome(event):
             addUserSQL = f'INSERT INTO user_info(user_id, user_name, user_stage) VALUES(\'{userID}\',\'{userName}\',0);'
             postgreSQLConnect(addUserSQL)
         message = TextSendMessage(
-            text=f'{userName} 您好，歡迎你加入Fin Game！\n你將會在Fin Game的世界學到\n有關金融報導的英文單字。\n若你已經準備好的話，請輸入「開始遊戲」吧！')
+            text=f'{userName} 您好，歡迎你加入Fin Game！\n你將會在Fin Game的世界學到\n有關金融報導的英文單字。\n在遊玩的過程中如果需要輸入答案或是需要提示的話，可以開啟圖文選單點選按鈕。\n如果太久沒有操作的話可能需要等待1分鐘左右再次操作才能正常運作。\n若你已經準備好的話，請輸入「開始遊戲」吧！')
         line_bot_api.reply_message(event.reply_token, message)
     except Exception as e:
         app.logger.error(f'Create user information error:{e}')
