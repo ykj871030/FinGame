@@ -526,8 +526,8 @@ def handle_message(event):
                                                           template=ButtonsTemplate(title='門打開了！',
                                                                                    text='門打開的瞬間，一道白光從門縫竄出，明顯的晃動也隨之而來...',
                                                                                    actions=[
-                                                                                       MessageAction(label=trueAnswer.upper(),
-                                                                                                     text=trueAnswer.upper()
+                                                                                       MessageAction(label=trueAnswer.upper()+"!",
+                                                                                                     text=trueAnswer.upper()+"!"
                                                                                                      )
                                                                                        ]
                                                                                    )
@@ -600,6 +600,47 @@ def handle_message(event):
     elif '<<<左滑<<<' in msg:
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(text="左滑看故事"))
+    elif 'WAKEUP!' in msg:
+        userStage=getUserStage(userID)
+        if userStage == 0:
+            message = TextSendMessage(text="請輸入「開始遊戲」，一起加入Fin Game吧！")
+        elif userStage == 4:
+            message = TemplateSendMessage(alt_text='Carousel template',
+                                                              template=CarouselTemplate(columns=[
+                                                                  CarouselColumn(
+                                                                      thumbnail_image_url='https://i.imgur.com/alt97CB.png',
+                                                                      title='國仁被行員叫醒',
+                                                                      text='搞了半天，剛剛所有的經歷原來只是國仁的一場夢！',
+                                                                      actions=[
+                                                                          MessageAction(
+                                                                              label='國仁說：',
+                                                                              text='(END-1)國仁說：'
+                                                                          ), MessageAction(
+                                                                              label='<<<左滑<<<',
+                                                                              text='<<<左滑<<<'
+                                                                          )
+                                                                      ]
+                                                                  ), CarouselColumn(
+                                                                      thumbnail_image_url='https://i.imgur.com/WJpKVKs.png',
+                                                                      title='國仁搖身一變成理財大師(自稱)。',
+                                                                      text='辦理好手續的國仁即將進入金融投資市場，成為理財大師的那天指日可待了。',
+                                                                      actions=[
+                                                                          MessageAction(
+                                                                              label='國仁說：',
+                                                                              text='(END-2)國仁說：'
+                                                                          ), MessageAction(
+                                                                              label='遊戲結束',
+                                                                              text='遊戲結束'
+                                                                          )
+                                                                      ]
+                                                                  )
+                                                              ]
+                                                              )
+                                                              )
+        else:
+            message = TextSendMessage(text="(似乎有股莫名的力量正呼喚著國仁，但國仁不以為意...)")
+        line_bot_api.reply_message(event.reply_token, message)
+    
     else:
         userStage = getUserStage(userID)
         if userStage == 0:
