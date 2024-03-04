@@ -526,8 +526,8 @@ def handle_message(event):
                                                           template=ButtonsTemplate(title='門打開了！',
                                                                                    text='門打開的瞬間，一道白光從門縫竄出，明顯的晃動也隨之而來...',
                                                                                    actions=[
-                                                                                       MessageAction(label=trueAnswer,
-                                                                                                     text=trueAnswer
+                                                                                       MessageAction(label=trueAnswer.upper(),
+                                                                                                     text=trueAnswer.upper()
                                                                                                      )
                                                                                        ]
                                                                                    )
