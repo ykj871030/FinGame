@@ -78,6 +78,11 @@ def getUserStage(userID):
     datas = postgreSQLSelect(getUserStage)
     return datas[0][0]
 
+# 網站測試
+@app.route("/")
+def hello():
+    return "Hello, World!"
+
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
