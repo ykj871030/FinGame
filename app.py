@@ -106,10 +106,10 @@ def FinGameReview():
     for row in rows:
         html += f'''
         <div style="width:100%; text-align:center;">
-            <table border="1" style="width:100%; text-align:center; font-size: initial;">
+            <table border="1" style="width:100%; text-align:center; font-size: 2rem;">
                 <tr>
                     <td style="width:75%;"><b>{row[1]}</b></td>
-                    <td rowspan="2"><audio src="{row[4]}" controls style="width:25%;"></audio></td>
+                    <td rowspan="2"><audio src="{row[4]}" controls style="width:40px;"></audio></td>
                 </tr>
                 <tr>
                     <td style="width:75%;">{row[2]}</td>
