@@ -72,16 +72,26 @@ def updateUserStage(stage, userID):
     updateStageStatus = f'UPDATE user_info SET user_stage={stage} WHERE user_id=\'{userID}\''
     postgreSQLConnect(updateStageStatus)
 
+
 # 取得使用者所在關卡
 def getUserStage(userID):
     getUserStage = f'SELECT user_stage FROM user_info WHERE user_id=\'{userID}\''
     datas = postgreSQLSelect(getUserStage)
     return datas[0][0]
 
+
 # 網站測試
-@app.route("/")
-def hello():
-    return "Hello, World!"
+@app.route("/FinGameReview")
+def FinGameReview():
+    vocabularySQL = '''
+                    SELECT no, vocabulary, translate, meaning, speak_url
+                    FROM vocabulary_info
+                    ORDER BY no ASC
+                    '''
+    rows = postgreSQLSelect(vocabularySQL)
+
+    return rows
+
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -209,7 +219,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(1)開燈' in msg:
         # 要確認玩家是否在第一關
-        userStage=getUserStage(userID)
+        userStage = getUserStage(userID)
         if userStage == 1:
             stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/CIe6qtf.png',
                                                alt_text='room_1_opne',
@@ -229,7 +239,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(1)關燈' in msg:
         # 要確認玩家是否在第一關
-        userStage=getUserStage(userID)
+        userStage = getUserStage(userID)
         if userStage == 1:
             stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/yASWBYr.png',
                                                alt_text='room_1_close',
@@ -249,7 +259,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(1)地板小卡' in msg:
         # 要確認玩家是否在第一關
-        userStage=getUserStage(userID)
+        userStage = getUserStage(userID)
         if userStage == 1:
             message = ImageSendMessage(original_content_url='https://i.imgur.com/mer9ofa.png',
                                        preview_image_url='https://i.imgur.com/mer9ofa.png')
@@ -262,7 +272,7 @@ def handle_message(event):
     # 第二關內容
     elif '進入：MARKET...?' in msg:
         # 要確認玩家是否在第二關
-        userStage=getUserStage(userID)
+        userStage = getUserStage(userID)
         if userStage == 2:
             stageMessage = ImagemapSendMessage(base_url='https://i.imgur.com/9BqvJZc.png',
                                                alt_text='room_2',
@@ -291,7 +301,8 @@ def handle_message(event):
                                                   alt_text='room_2_picture',
                                                   base_size=BaseSize(height=1040, width=1040),
                                                   actions=[MessageImagemapAction(text='(2)照片後的黃紙',
-                                                                                 area=ImagemapArea(x=678, y=690, width=85,
+                                                                                 area=ImagemapArea(x=678, y=690,
+                                                                                                   width=85,
                                                                                                    height=125))
                                                            ]
                                                   )
@@ -402,7 +413,8 @@ def handle_message(event):
                                                   alt_text='room_3_drawer',
                                                   base_size=BaseSize(height=1040, width=1040),
                                                   actions=[MessageImagemapAction(text='(3)抽屜裡的東西',
-                                                                                 area=ImagemapArea(x=410, y=180, width=567,
+                                                                                 area=ImagemapArea(x=410, y=180,
+                                                                                                   width=567,
                                                                                                    height=475))
                                                            ]
                                                   )
@@ -466,7 +478,8 @@ def handle_message(event):
         if userStage == 0:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！'))
         elif userStage == 4:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='點擊圖文選單的「REVIEW」按鈕，複習一下在Fin Game學到的單字吧！'))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(
+                text='點擊圖文選單的「REVIEW」按鈕，複習一下在Fin Game學到的單字吧！'))
         else:
             line_bot_api.reply_message(event.reply_token,
                                        TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請輸入：\n門的密碼是 XXXXX)"))
@@ -483,7 +496,8 @@ def handle_message(event):
                                        TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！'))
         elif stage == 4:
             line_bot_api.reply_message(event.reply_token,
-                                       TextSendMessage(text='點擊圖文選單的「REVIEW」按鈕，複習一下在Fin Game學到的單字吧！'))
+                                       TextSendMessage(
+                                           text='點擊圖文選單的「REVIEW」按鈕，複習一下在Fin Game學到的單字吧！'))
         else:
             hint = datas[0][2]
             line_bot_api.reply_message(event.reply_token,
@@ -503,7 +517,8 @@ def handle_message(event):
                                        TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！'))
         elif stage == 4:
             line_bot_api.reply_message(event.reply_token,
-                                       TextSendMessage(text='點擊圖文選單的「REVIEW」按鈕，複習一下在Fin Game學到的單字吧！'))
+                                       TextSendMessage(
+                                           text='點擊圖文選單的「REVIEW」按鈕，複習一下在Fin Game學到的單字吧！'))
         else:
             replyArray = []
             if stage == 3:
@@ -528,32 +543,34 @@ def handle_message(event):
                 replyArray.append(TextSendMessage(text=f"{voc} {trans}\n{mean}"))
                 replyArray.append(AudioSendMessage(original_content_url=url, duration=sec))
 
-            #判斷是否為答案
+            # 判斷是否為答案
             if ansRS == trueAnswer:
-                updateUserStage(stage+1, userID)
+                updateUserStage(stage + 1, userID)
                 if stage == 3:
                     replyArray.append(TemplateSendMessage(alt_text='open_door',
                                                           template=ButtonsTemplate(title='門打開了！',
                                                                                    text='門打開的瞬間，一道白光從門縫竄出，明顯的晃動也隨之而來...',
                                                                                    actions=[
-                                                                                       MessageAction(label=trueAnswer.upper()+"!",
-                                                                                                     text=trueAnswer.upper()+"!"
-                                                                                                     )
-                                                                                       ]
+                                                                                       MessageAction(
+                                                                                           label=trueAnswer.upper() + "!",
+                                                                                           text=trueAnswer.upper() + "!"
+                                                                                           )
+                                                                                   ]
                                                                                    )
                                                           )
                                       )
                 else:
-                    nextSQL = f"SELECT stage, stage_name FROM stage_info WHERE stage ='{stage+1}'"
+                    nextSQL = f"SELECT stage, stage_name FROM stage_info WHERE stage ='{stage + 1}'"
                     datas = postgreSQLSelect(nextSQL)
                     stageName = datas[0][1]
                     replyArray.append(TemplateSendMessage(alt_text='open_door',
                                                           template=ButtonsTemplate(title='門打開了！',
                                                                                    text='國仁：哇！沒想到我還蠻聰明的嘛！虧我想得到。',
-                                                                                   actions=[MessageAction(label="進入房間",
-                                                                                                          text=f'進入：{stageName}'
-                                                                                                          )
-                                                                                            ]
+                                                                                   actions=[
+                                                                                       MessageAction(label="進入房間",
+                                                                                                     text=f'進入：{stageName}'
+                                                                                                     )
+                                                                                       ]
                                                                                    )
                                                           )
                                       )
@@ -611,47 +628,47 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(text="左滑看故事"))
     elif 'WAKEUP!' in msg:
-        userStage=getUserStage(userID)
+        userStage = getUserStage(userID)
         if userStage == 0:
             message = TextSendMessage(text="請輸入「開始遊戲」，一起加入Fin Game吧！")
         elif userStage == 4:
             message = TemplateSendMessage(alt_text='Carousel template',
-                                                              template=CarouselTemplate(columns=[
-                                                                  CarouselColumn(
-                                                                      thumbnail_image_url='https://i.imgur.com/alt97CB.png',
-                                                                      title='國仁被行員叫醒',
-                                                                      text='搞了半天，剛剛所有的經歷原來只是國仁的一場夢！',
-                                                                      actions=[
-                                                                          MessageAction(
-                                                                              label='國仁說：',
-                                                                              text='(END-1)國仁說：'
-                                                                          ), MessageAction(
-                                                                              label='<<<左滑<<<',
-                                                                              text='<<<左滑<<<'
-                                                                          )
-                                                                      ]
-                                                                  ), CarouselColumn(
-                                                                      thumbnail_image_url='https://i.imgur.com/WJpKVks.png',
-                                                                      title='國仁搖身一變成為了理財大師(自稱)',
-                                                                      text='辦理好手續的國仁即將進入金融投資市場，成為理財大師的那天指日可待了。',
-                                                                      actions=[
-                                                                          MessageAction(
-                                                                              label='國仁說：',
-                                                                              text='(END-2)國仁說：'
-                                                                          ), MessageAction(
-                                                                              label='遊戲結束',
-                                                                              text='遊戲結束'
-                                                                          )
-                                                                      ]
-                                                                  )
-                                                              ]
-                                                              )
-                                                              )
+                                          template=CarouselTemplate(columns=[
+                                              CarouselColumn(
+                                                  thumbnail_image_url='https://i.imgur.com/alt97CB.png',
+                                                  title='國仁被行員叫醒',
+                                                  text='搞了半天，剛剛所有的經歷原來只是國仁的一場夢！',
+                                                  actions=[
+                                                      MessageAction(
+                                                          label='國仁說：',
+                                                          text='(END-1)國仁說：'
+                                                      ), MessageAction(
+                                                          label='<<<左滑<<<',
+                                                          text='<<<左滑<<<'
+                                                      )
+                                                  ]
+                                              ), CarouselColumn(
+                                                  thumbnail_image_url='https://i.imgur.com/WJpKVks.png',
+                                                  title='國仁搖身一變成為了理財大師(自稱)',
+                                                  text='辦理好手續的國仁即將進入金融投資市場，成為理財大師的那天指日可待了。',
+                                                  actions=[
+                                                      MessageAction(
+                                                          label='國仁說：',
+                                                          text='(END-2)國仁說：'
+                                                      ), MessageAction(
+                                                          label='遊戲結束',
+                                                          text='遊戲結束'
+                                                      )
+                                                  ]
+                                              )
+                                          ]
+                                          )
+                                          )
         else:
             message = TextSendMessage(text="(似乎有股莫名的力量正呼喚著國仁，但國仁不以為意...)")
         line_bot_api.reply_message(event.reply_token, message)
 
-    #遊戲結尾
+    # 遊戲結尾
     elif '(END-1)國仁說：' in msg:
         userStage = getUserStage(userID)
         if userStage == 0:
@@ -677,12 +694,13 @@ def handle_message(event):
         if userStage == 0:
             message = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
         elif userStage == 4:
-            message = TextSendMessage(text="恭喜你破關了！！！\n\n希望在遊玩的過程中有讓你學到一些基礎的金融英文單字，相信學會這些單字之後，對於未來讀財經英文新聞時會有所幫助。\n\n若想要複習這些單字的話，可以點選圖文選單的「REVIEW」按鈕，複習在在Fin Game學到的單字吧！\n\nFin Game在此感謝您的遊玩！")
+            message = TextSendMessage(
+                text="恭喜你破關了！！！\n\n希望在遊玩的過程中有讓你學到一些基礎的金融英文單字，相信學會這些單字之後，對於未來讀財經英文新聞時會有所幫助。\n\n若想要複習這些單字的話，可以點選圖文選單的「REVIEW」按鈕，複習在在Fin Game學到的單字吧！\n\nFin Game在此感謝您的遊玩！")
         else:
             message = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, message)
-        
-    #輸入其他文字的時候
+
+    # 輸入其他文字的時候
     else:
         userStage = getUserStage(userID)
         if userStage == 0:
