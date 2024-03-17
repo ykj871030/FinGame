@@ -99,12 +99,12 @@ def FinGameReview():
                     ORDER BY no ASC
                     '''
     rows = postgreSQLSelect(vocabularySQL)
-    html += rows
+    html += str(rows)
     html += '''    </body>
 
         </html>
         '''
-    return rows
+    return html
 
 
 # 監聽所有來自 /callback 的 Post Request
