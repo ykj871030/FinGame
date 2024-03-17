@@ -20,6 +20,7 @@ import psycopg2
 
 # ======宣告全域變數==========
 app = Flask(__name__)
+app.json.ensure_ascii = False
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 # Channel Access Token
 line_bot_api = LineBotApi(
