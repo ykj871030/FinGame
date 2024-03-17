@@ -84,26 +84,46 @@ def getUserStage(userID):
 # 網站測試
 @app.route("/FinGameReview")
 def FinGameReview():
-    html = '''<html>
+    html = '''
+    <!DOCTYPE html>
+    <html lang="zh-Hant-TW">
         <head>
-            <meta charset="utf-8">
+            <meta charset="UTF-8">
             <title>FinGame Review</title>
         </head>
         <body>
-            <h1>TEST</h1>'''
-
-
+            <div style="width:360px; height:60px; text-align:center;">
+                <h1>FinGame Review</h1>
+            </div>
+    '''
     vocabularySQL = '''
                     SELECT no, vocabulary, translate, meaning, speak_url
                     FROM vocabulary_info
                     ORDER BY no ASC
                     '''
     rows = postgreSQLSelect(vocabularySQL)
-    html += str(rows)
-    html += '''    </body>
-
-        </html>
+    for row in rows:
+        html += f'''
+        <div style="width:360px; text-align:center;">
+            <table border="1" style="width:340px; text-align:center;">
+                <tr>
+                    <td style="width:250px;">{row[1]}</td>
+                    <td rowspan="2"><audio src="{row[4]}" controls style="width:20px;"></audio></td>
+                </tr>
+                <tr>
+                    <td style="width:250px;">{row[2]}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="left">{row[3]}</td>
+                </tr>
+            </table>
+        </div>
+        <br>
         '''
+    html += '''
+        </body>
+    </html>
+    '''
     return html
 
 
