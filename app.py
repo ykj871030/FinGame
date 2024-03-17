@@ -89,11 +89,11 @@ def FinGameReview():
     <html lang="zh-Hant-TW">
         <head>
             <meta charset="UTF-8">
-            <meta name=”viewport” content=”width=device-width, initial-scale=1, maximum-scale=1″>
+            <meta name=”viewport” content=”width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0″>
             <title>FinGame Review</title>
         </head>
         <body>
-            <div style="width:360px; height:60px; text-align:center;">
+            <div style="width:100%; height:60px; text-align:center;">
                 <h1>FinGame Review</h1>
             </div>
     '''
@@ -105,17 +105,17 @@ def FinGameReview():
     rows = postgreSQLSelect(vocabularySQL)
     for row in rows:
         html += f'''
-        <div style="width:360px; text-align:center;">
-            <table border="1" style="width:340px; text-align:center;">
+        <div style="width:100%; text-align:center;">
+            <table border="1" style="width:100%; text-align:center; font-size: initial;">
                 <tr>
-                    <td style="width:250px;">{row[1]}</td>
-                    <td rowspan="2"><audio src="{row[4]}" controls style="width:20px;"></audio></td>
+                    <td style="width:75%;"><b>{row[1]}</b></td>
+                    <td rowspan="2"><audio src="{row[4]}" controls style="width:25%;"></audio></td>
                 </tr>
                 <tr>
-                    <td style="width:250px;">{row[2]}</td>
+                    <td style="width:75%;">{row[2]}</td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="left">{row[3]}</td>
+                    <td colspan="2" align="left" style="width:100%;">{row[3]}</td>
                 </tr>
             </table>
         </div>
