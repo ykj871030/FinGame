@@ -735,6 +735,18 @@ def handle_message(event):
             message = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, message)
 
+    # 複習單字
+    elif '複習單字' in msg:
+        userStage = getUserStage(userID)
+        if userStage == 0:
+            message = TextSendMessage(text='請輸入「開始遊戲」，一起加入Fin Game吧！')
+        elif userStage == 4:
+            message = TextSendMessage(
+                text="一起複習在FinGame學到的單字吧！\nhttps://fingame-glb9.onrender.com/FinGameReview")
+        else:
+            message = TextSendMessage(text='國仁：嗯......')
+        line_bot_api.reply_message(event.reply_token, message)
+    
     # 輸入其他文字的時候
     else:
         userStage = getUserStage(userID)
