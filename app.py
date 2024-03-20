@@ -108,11 +108,11 @@ def FinGameReview():
         <div style="width:100%; height:320px; text-align:center;">
             <table border="1" style="width:100%; height:320px; text-align:center; font-size: 1.5rem;">
                 <tr>
-                    <td style="width:50%; height:100px;"><b>{row[1]}</b></td>
-                    <td style="width:50%; height:100px;">{row[2]}</td>
+                    <td style="width:50%; height:80px;"><b>{row[1]}</b></td>
+                    <td style="width:50%; height:80px;">{row[2]}</td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="width:100%; height:100px;"><audio src="{row[4]}" controls style="width:50%;"></audio></td>
+                    <td colspan="2" style="width:100%; height:80px;"><audio src="{row[4]}" controls style="width:50%;"></audio></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="left" style="width:100%; height:100px;">{row[3]}</td>
