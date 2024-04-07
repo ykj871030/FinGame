@@ -29,10 +29,10 @@ line_bot_api = LineBotApi(
 handler = WebhookHandler('b202c38b2526a4ca07fec24075461cf4')
 
 # 設置連線PostgreSQL時所需參數
-db_name = "fin_game"
+db_name = "fin_game_v0bs"
 db_user = "fin_game_user"
-db_password = "ctS3MTDp4lg6x7rcwtYEJDUs2sfqrr6T"
-db_host = "dpg-cmdkqnocmk4c73alfs20-a.singapore-postgres.render.com"
+db_password = "3owEq7LIqYwZ51if6TlHqAtS3BiQftiq"
+db_host = "dpg-co8vvgtjm4es73an6sig-a.singapore-postgres.render.com"
 db_port = 5432
 
 
@@ -269,11 +269,11 @@ def handle_message(event):
                                                )
         elif userStage == 0:
             stageMessage = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                               template=ButtonsTemplate(title='準備好了嗎？',
+                                                                        text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                        actions=[MessageAction(label="開始遊戲",
+                                                                                               text="開始遊戲"
+                                                                                               )]))
         else:
             stageMessage = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, stageMessage)
@@ -294,11 +294,11 @@ def handle_message(event):
                                                )
         elif userStage == 0:
             stageMessage = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                               template=ButtonsTemplate(title='準備好了嗎？',
+                                                                        text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                        actions=[MessageAction(label="開始遊戲",
+                                                                                               text="開始遊戲"
+                                                                                               )]))
         else:
             stageMessage = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, stageMessage)
@@ -310,11 +310,11 @@ def handle_message(event):
                                        preview_image_url='https://i.imgur.com/mer9ofa.png')
         elif userStage == 0:
             message = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                          template=ButtonsTemplate(title='準備好了嗎？',
+                                                                   text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                   actions=[MessageAction(label="開始遊戲",
+                                                                                          text="開始遊戲"
+                                                                                          )]))
         else:
             message = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, message)
@@ -340,11 +340,11 @@ def handle_message(event):
                                                )
         elif userStage == 0:
             stageMessage = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                               template=ButtonsTemplate(title='準備好了嗎？',
+                                                                        text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                        actions=[MessageAction(label="開始遊戲",
+                                                                                               text="開始遊戲"
+                                                                                               )]))
         else:
             stageMessage = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, stageMessage)
@@ -387,11 +387,11 @@ def handle_message(event):
             replyArray.clear()
         elif userStage == 0:
             message = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                          template=ButtonsTemplate(title='準備好了嗎？',
+                                                                   text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                   actions=[MessageAction(label="開始遊戲",
+                                                                                          text="開始遊戲"
+                                                                                          )]))
             line_bot_api.reply_message(event.reply_token, message)
         else:
             message = TextSendMessage(text='國仁：嗯......')
@@ -404,11 +404,11 @@ def handle_message(event):
                                        preview_image_url='https://i.imgur.com/WofIzXf.png')
         elif userStage == 0:
             message = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                          template=ButtonsTemplate(title='準備好了嗎？',
+                                                                   text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                   actions=[MessageAction(label="開始遊戲",
+                                                                                          text="開始遊戲"
+                                                                                          )]))
         else:
             message = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, message)
@@ -420,11 +420,11 @@ def handle_message(event):
                                        preview_image_url='https://i.imgur.com/paVuOhm.png')
         elif userStage == 0:
             message = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                          template=ButtonsTemplate(title='準備好了嗎？',
+                                                                   text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                   actions=[MessageAction(label="開始遊戲",
+                                                                                          text="開始遊戲"
+                                                                                          )]))
         else:
             message = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, message)
@@ -450,11 +450,11 @@ def handle_message(event):
                                                )
         elif userStage == 0:
             stageMessage = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                               template=ButtonsTemplate(title='準備好了嗎？',
+                                                                        text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                        actions=[MessageAction(label="開始遊戲",
+                                                                                               text="開始遊戲"
+                                                                                               )]))
         else:
             stageMessage = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, stageMessage)
@@ -470,11 +470,11 @@ def handle_message(event):
             replyArray.clear()
         elif userStage == 0:
             stageMessage = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                               template=ButtonsTemplate(title='準備好了嗎？',
+                                                                        text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                        actions=[MessageAction(label="開始遊戲",
+                                                                                               text="開始遊戲"
+                                                                                               )]))
             line_bot_api.reply_message(event.reply_token, stageMessage)
         else:
             stageMessage = TextSendMessage(text='國仁：嗯......')
@@ -487,11 +487,11 @@ def handle_message(event):
                                        preview_image_url='https://i.imgur.com/h0bBBQV.png')
         elif userStage == 0:
             message = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                          template=ButtonsTemplate(title='準備好了嗎？',
+                                                                   text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                   actions=[MessageAction(label="開始遊戲",
+                                                                                          text="開始遊戲"
+                                                                                          )]))
         else:
             message = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, message)
@@ -542,11 +542,11 @@ def handle_message(event):
             replyArray.clear()
         elif userStage == 0:
             stageMessage = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                               template=ButtonsTemplate(title='準備好了嗎？',
+                                                                        text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                        actions=[MessageAction(label="開始遊戲",
+                                                                                               text="開始遊戲"
+                                                                                               )]))
             line_bot_api.reply_message(event.reply_token, stageMessage)
         else:
             stageMessage = TextSendMessage(text='國仁：嗯......')
@@ -559,11 +559,11 @@ def handle_message(event):
                                        preview_image_url='https://i.imgur.com/RptQK1X.png')
         elif userStage == 0:
             message = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                          template=ButtonsTemplate(title='準備好了嗎？',
+                                                                   text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                   actions=[MessageAction(label="開始遊戲",
+                                                                                          text="開始遊戲"
+                                                                                          )]))
         else:
             message = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, message)
@@ -575,11 +575,13 @@ def handle_message(event):
                                        TextSendMessage(text="(將墊板放回抽屜裡...)"))
         elif userStage == 0:
             line_bot_api.reply_message(event.reply_token, TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )])))
+                                                                              template=ButtonsTemplate(
+                                                                                  title='準備好了嗎？',
+                                                                                  text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                                  actions=[
+                                                                                      MessageAction(label="開始遊戲",
+                                                                                                    text="開始遊戲"
+                                                                                                    )])))
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='國仁：嗯......'))
     # 其他控制選項
@@ -587,11 +589,13 @@ def handle_message(event):
         userStage = getUserStage(userID)
         if userStage == 0:
             line_bot_api.reply_message(event.reply_token, TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )])))
+                                                                              template=ButtonsTemplate(
+                                                                                  title='準備好了嗎？',
+                                                                                  text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                                  actions=[
+                                                                                      MessageAction(label="開始遊戲",
+                                                                                                    text="開始遊戲"
+                                                                                                    )])))
         elif userStage == 4:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(
                 text='點擊圖文選單的「REVIEW」按鈕，複習一下在Fin Game學到的單字吧！'))
@@ -609,11 +613,12 @@ def handle_message(event):
         if stage == 0:
             line_bot_api.reply_message(event.reply_token,
                                        TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )])))
+                                                           template=ButtonsTemplate(title='準備好了嗎？',
+                                                                                    text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                                    actions=[
+                                                                                        MessageAction(label="開始遊戲",
+                                                                                                      text="開始遊戲"
+                                                                                                      )])))
         elif stage == 4:
             line_bot_api.reply_message(event.reply_token,
                                        TextSendMessage(
@@ -635,11 +640,12 @@ def handle_message(event):
         if stage == 0:
             line_bot_api.reply_message(event.reply_token,
                                        TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )])))
+                                                           template=ButtonsTemplate(title='準備好了嗎？',
+                                                                                    text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                                    actions=[
+                                                                                        MessageAction(label="開始遊戲",
+                                                                                                      text="開始遊戲"
+                                                                                                      )])))
         elif stage == 4:
             line_bot_api.reply_message(event.reply_token,
                                        TextSendMessage(
@@ -679,7 +685,7 @@ def handle_message(event):
                                                                                        MessageAction(
                                                                                            label=trueAnswer.upper() + "!",
                                                                                            text=trueAnswer.upper() + "!"
-                                                                                           )
+                                                                                       )
                                                                                    ]
                                                                                    )
                                                           )
@@ -695,7 +701,7 @@ def handle_message(event):
                                                                                        MessageAction(label="進入房間",
                                                                                                      text=f'進入：{stageName}'
                                                                                                      )
-                                                                                       ]
+                                                                                   ]
                                                                                    )
                                                           )
                                       )
@@ -717,14 +723,16 @@ def handle_message(event):
         if stage == 0:
             line_bot_api.reply_message(event.reply_token,
                                        TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )])))
+                                                           template=ButtonsTemplate(title='準備好了嗎？',
+                                                                                    text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                                    actions=[
+                                                                                        MessageAction(label="開始遊戲",
+                                                                                                      text="開始遊戲"
+                                                                                                      )])))
         elif stage == 4:
             line_bot_api.reply_message(event.reply_token,
-                                       TextSendMessage(text='點擊圖文選單的「REVIEW」按鈕，複習一下在Fin Game學到的單字吧！'))
+                                       TextSendMessage(
+                                           text='點擊圖文選單的「REVIEW」按鈕，複習一下在Fin Game學到的單字吧！'))
         elif stage == 3:
             replyArray = []
             pwd = msg.split('是')[1]
@@ -761,11 +769,11 @@ def handle_message(event):
         userStage = getUserStage(userID)
         if userStage == 0:
             message = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                          template=ButtonsTemplate(title='準備好了嗎？',
+                                                                   text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                   actions=[MessageAction(label="開始遊戲",
+                                                                                          text="開始遊戲"
+                                                                                          )]))
         elif userStage == 4:
             message = TemplateSendMessage(alt_text='Carousel template',
                                           template=CarouselTemplate(columns=[
@@ -808,11 +816,11 @@ def handle_message(event):
         userStage = getUserStage(userID)
         if userStage == 0:
             guoSay = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                         template=ButtonsTemplate(title='準備好了嗎？',
+                                                                  text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                  actions=[MessageAction(label="開始遊戲",
+                                                                                         text="開始遊戲"
+                                                                                         )]))
         elif userStage == 4:
             talkInTheEnd = '國仁：\n哇靠！原來我是睡著了！真假啦！有夠丟臉的......。我就想說難怪，哪有一個銀行的管控管那麼差的，原來只是夢。算了不重要，被妹子行員叫醒才比較重要，辦理手續先。'
             guoSay = TextSendMessage(text=talkInTheEnd)
@@ -823,11 +831,11 @@ def handle_message(event):
         userStage = getUserStage(userID)
         if userStage == 0:
             guoSay = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                         template=ButtonsTemplate(title='準備好了嗎？',
+                                                                  text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                  actions=[MessageAction(label="開始遊戲",
+                                                                                         text="開始遊戲"
+                                                                                         )]))
         elif userStage == 4:
             talkInTheEnd = '國仁：\n哈哈！一切準備就緒！看好了世界，世界上第二個巴菲特即將橫空出世！我要準備衝擊金融市場啦！'
             guoSay = TextSendMessage(text=talkInTheEnd)
@@ -838,11 +846,11 @@ def handle_message(event):
         userStage = getUserStage(userID)
         if userStage == 0:
             message = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                          template=ButtonsTemplate(title='準備好了嗎？',
+                                                                   text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                   actions=[MessageAction(label="開始遊戲",
+                                                                                          text="開始遊戲"
+                                                                                          )]))
         elif userStage == 4:
             message = TextSendMessage(
                 text="恭喜你破關了！！！\n\n希望在遊玩的過程中有讓你學到一些基礎的金融英文單字，相信學會這些單字之後，對於未來讀財經英文新聞時會有所幫助。\n\n若想要複習這些單字的話，可以點選圖文選單的「REVIEW」按鈕，複習在在Fin Game學到的單字吧！\n\nFin Game在此感謝您的遊玩！")
@@ -855,28 +863,28 @@ def handle_message(event):
         userStage = getUserStage(userID)
         if userStage == 0:
             message = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                          template=ButtonsTemplate(title='準備好了嗎？',
+                                                                   text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                   actions=[MessageAction(label="開始遊戲",
+                                                                                          text="開始遊戲"
+                                                                                          )]))
         elif userStage == 4:
             message = TextSendMessage(
                 text="一起複習在FinGame學到的單字吧！\nhttps://fingame-glb9.onrender.com/FinGameReview")
         else:
             message = TextSendMessage(text='國仁：嗯......')
         line_bot_api.reply_message(event.reply_token, message)
-    
+
     # 輸入其他文字的時候
     else:
         userStage = getUserStage(userID)
         if userStage == 0:
             message = TemplateSendMessage(alt_text='start_game',
-                                                  template=ButtonsTemplate(title='準備好了嗎？',
-                                                                           text="點選「開始遊戲」，一起加入Fin Game吧！",
-                                                                           actions=[MessageAction(label="開始遊戲",
-                                                                                                  text="開始遊戲"
-                                                                                                  )]))
+                                          template=ButtonsTemplate(title='準備好了嗎？',
+                                                                   text="點選「開始遊戲」，一起加入Fin Game吧！",
+                                                                   actions=[MessageAction(label="開始遊戲",
+                                                                                          text="開始遊戲"
+                                                                                          )]))
         elif userStage == 4:
             message = TextSendMessage(text='點擊圖文選單的「REVIEW」按鈕，複習一下在Fin Game學到的單字吧！')
         else:
