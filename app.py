@@ -736,7 +736,7 @@ def handle_message(event):
         elif stage == 3:
             replyArray = []
             pwd = msg.split('是')[1]
-            pwdRS = pwd.strip()
+            pwdRS = pwd.strip().lower()
 
             # 去看玩家輸入的英文有沒有在單字庫裡
             vocabularySQL = f'''
