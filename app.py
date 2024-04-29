@@ -201,7 +201,7 @@ def handle_message(event):
                                                                   ), CarouselColumn(
                                                                       thumbnail_image_url='https://i.imgur.com/3vu72hU.png',
                                                                       title='A door is open.',
-                                                                      text='Surprisingly, there was an open door. Out of curiosity, Guoren decides to go inside and find out what's going on.',
+                                                                      text="Surprisingly, there was an open door. Out of curiosity, Guoren decides to go inside and find out what's going on.",
                                                                       actions=[
                                                                           MessageAction(
                                                                               label='Guoren says:',
