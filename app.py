@@ -792,7 +792,7 @@ def handle_message(event):
                                                   ]
                                               ), CarouselColumn(
                                                   thumbnail_image_url='https://i.imgur.com/WJpKVks.png',
-                                                  title='Guoren has become a financial guru (self-proclaimed).',
+                                                  title='Guoren will become a financial guru.',
                                                   text='Guoren will enter the financial investment market.',
                                                   actions=[
                                                       MessageAction(
