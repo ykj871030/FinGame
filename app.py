@@ -151,7 +151,7 @@ def handle_message(event):
     userID = str(event.source.user_id)
     userName = line_bot_api.get_profile(userID).display_name
     # 劇情_前情提要
-    if '開始遊戲' in msg:
+    if 'Start' in msg:
         query = f'SELECT * FROM user_info WHERE user_id=\'{userID}\''
         datas = postgreSQLSelect(query)
         if len(datas) == 0:
@@ -161,54 +161,54 @@ def handle_message(event):
                                                               template=CarouselTemplate(columns=[
                                                                   CarouselColumn(
                                                                       thumbnail_image_url='https://i.imgur.com/RgBlFpa.png',
-                                                                      title='國仁要去銀行',
-                                                                      text='國仁目前想要投資金融市場，所以前往銀行，詢問理財專員。',
+                                                                      title='Guoren goes to the bank.',
+                                                                      text='Guoren wants to invest, so he goes to the bank to ask for the financial planning personnel.',
                                                                       actions=[
                                                                           MessageAction(
-                                                                              label='國仁說：',
-                                                                              text='(0-1)國仁說：'
+                                                                              label='Guoren says:',
+                                                                              text='(0-1)Guoren says:'
                                                                           ), MessageAction(
-                                                                              label='<<<左滑<<<',
-                                                                              text='<<<左滑<<<'
+                                                                              label='<<Swipe left<<',
+                                                                              text='<<Swipe left<<'
                                                                           )
                                                                       ]
                                                                   ), CarouselColumn(
                                                                       thumbnail_image_url='https://i.imgur.com/kF5g7ri.png',
-                                                                      title='國仁抽號碼牌',
-                                                                      text='國仁到了銀行，遵守排隊原則，抽了張號碼牌。',
+                                                                      title='Guoren took a number.',
+                                                                      text='Guoren arrived at the bank, and took a number',
                                                                       actions=[
                                                                           MessageAction(
-                                                                              label='國仁說：',
-                                                                              text='(0-2)國仁說：'
+                                                                              label='Guoren says:',
+                                                                              text='(0-2)Guoren says:'
                                                                           ), MessageAction(
-                                                                              label='<<<左滑<<<',
-                                                                              text='<<<左滑<<<'
+                                                                              label='<<Swipe left<<',
+                                                                              text='<<Swipe left<<'
                                                                           )
                                                                       ]
                                                                   ), CarouselColumn(
                                                                       thumbnail_image_url='https://i.imgur.com/F8ho4aP.png',
-                                                                      title='國仁發現銀行的人都消失了',
-                                                                      text='抽完號碼牌的國仁發現，原本在銀行的人突然都不見了。',
+                                                                      title='Everyone at the bank has disappeared!',
+                                                                      text='After taking the number plate, Guoren found that everyone who was at the bank suddenly disappeared.',
                                                                       actions=[
                                                                           MessageAction(
-                                                                              label='國仁說：',
-                                                                              text='(0-3)國仁說：'
+                                                                              label='Guoren says:',
+                                                                              text='(0-3)Guoren says:'
                                                                           ), MessageAction(
-                                                                              label='<<<左滑<<<',
-                                                                              text='<<<左滑<<<'
+                                                                              label='<<Swipe left<<',
+                                                                              text='<<Swipe left<<'
                                                                           )
                                                                       ]
                                                                   ), CarouselColumn(
                                                                       thumbnail_image_url='https://i.imgur.com/3vu72hU.png',
-                                                                      title='國仁看見有扇門是開著的',
-                                                                      text='但銀行內竟然有扇門是開著的，出自於好奇，國仁決定走進去一探究竟。',
+                                                                      title='A door is open.',
+                                                                      text='Surprisingly, there was an open door. Out of curiosity, Guoren decides to go inside and find out what's going on.',
                                                                       actions=[
                                                                           MessageAction(
-                                                                              label='國仁說：',
-                                                                              text='(0-4)國仁說：'
+                                                                              label='Guoren says:',
+                                                                              text='(0-4)Guoren says:'
                                                                           ), MessageAction(
-                                                                              label='進入房間：',
-                                                                              text='進入：開著的房間'
+                                                                              label='Enter the room.',
+                                                                              text='Enter the open room'
                                                                           )
                                                                       ]
                                                                   )
@@ -218,25 +218,25 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, story_carousel_template_message)
 
     # 劇情_台詞
-    elif '(0-1)國仁說：' in msg:
+    elif '(0-1)Guoren says:' in msg:
         talkAbout = '國仁：\n最近剛賺了一筆，手上的閒置資金不知道要做什麼？你不理財，財不理你，閒著也是閒著，不如去銀行詢問理財專員吧！'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
-    elif '(0-2)國仁說：' in msg:
+    elif '(0-2)Guoren says:' in msg:
         talkAbout = '國仁：\n找了理財專員才發現我還有很多手續要辦理，反正我也是第一次理財，就抽抽號碼牌，等櫃檯叫號吧！希望會被分配到妹子櫃檯。'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
-    elif '(0-3)國仁說：' in msg:
+    elif '(0-3)Guoren says:' in msg:
         talkAbout = '國仁：\n今天銀行沒什麼人，看來也不需要排隊了，真幸運！不對，這是什麼情況？怎麼連櫃檯的人都沒有？難不成下班了嗎？我也才剛到銀行欸！。'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
-    elif '(0-4)國仁說：' in msg:
+    elif '(0-4)Guoren says:' in msg:
         talkAbout = '國仁：\n咦？怎麼會有一扇門是開著的？這家銀行的控管也太鬆散了吧！如果我偷偷跑進去應該也不會怎樣吧，反正銀行現在連半個人都沒有。'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
 
     # 第一關內容
-    elif '進入：開著的房間' in msg:
+    elif 'Enter the open room' in msg:
         # 將玩家關卡狀態更新為1
         stage = 1
         updateUserStage(stage, userID)
@@ -762,7 +762,7 @@ def handle_message(event):
                 replyArray.append(TextSendMessage(text=f"{hint}"))
             line_bot_api.reply_message(event.reply_token, replyArray)
             replyArray.clear()
-    elif '<<<左滑<<<' in msg:
+    elif '<<Swipe left<<' in msg:
         line_bot_api.reply_message(event.reply_token,
                                    TextSendMessage(text="左滑看故事"))
     elif 'WAKEUP!' in msg:
@@ -909,7 +909,7 @@ def welcome(event):
             addUserSQL = f'INSERT INTO user_info(user_id, user_name, user_stage) VALUES(\'{userID}\',\'{userName}\',0);'
             postgreSQLConnect(addUserSQL)
         message = TextSendMessage(
-            text=f'{userName} 您好，歡迎你加入Fin Game！\n你將會在Fin Game的世界學到有關金融報導的英文單字。\n\n在遊玩的過程中如果需要輸入答案或是需要提示的話，可以開啟圖文選單點選按鈕。\n\n如果太久沒有操作的話可能需要等待1分鐘左右再次操作才能正常運作。\n\n若你已經準備好的話，\n請輸入「開始遊戲」吧！')
+            text=f'Hello {userName}, welcome to join FinGame!\nYou will learn financial terminology at FinGame.\n\nDuring the game, if you need to enter an answer or need a hint, you can open the rich menus and click the button.\n\nIf FinGame does not respond, you will need to enter any input and wait 1 minute before continuing to play.\n\nIf you are ready, \nplease enter "Start" !')
         line_bot_api.reply_message(event.reply_token, message)
     except Exception as e:
         app.logger.error(f'Create user information error:{e}')
