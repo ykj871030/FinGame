@@ -585,7 +585,7 @@ def handle_message(event):
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='國仁：嗯......'))
     # 其他控制選項
-    elif '開門！' in msg:
+    elif 'Open the door!' in msg:
         userStage = getUserStage(userID)
         if userStage == 0:
             line_bot_api.reply_message(event.reply_token, TemplateSendMessage(alt_text='start_game',
@@ -602,7 +602,7 @@ def handle_message(event):
         else:
             line_bot_api.reply_message(event.reply_token,
                                        TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請輸入：\n門的密碼是 XXXXX)"))
-    elif '提示' in msg:
+    elif 'Hint' in msg:
         hintSQL = f'''
         SELECT u.user_id, u.user_stage, s.hint
         FROM user_info u LEFT JOIN stage_info s ON u.user_stage = s.stage
@@ -859,7 +859,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
 
     # 複習單字
-    elif '複習單字' in msg:
+    elif 'Review vocabulary' in msg:
         userStage = getUserStage(userID)
         if userStage == 0:
             message = TemplateSendMessage(alt_text='start_game',
