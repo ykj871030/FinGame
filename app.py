@@ -219,19 +219,19 @@ def handle_message(event):
 
     # 劇情_台詞
     elif "(0-1)Guoren says:" in msg:
-        talkAbout = '國仁：\n最近剛賺了一筆，手上的閒置資金不知道要做什麼？你不理財，財不理你，閒著也是閒著，不如去銀行詢問理財專員吧！'
+        talkAbout = 'Guoren:\n最近剛賺了一筆，手上的閒置資金不知道要做什麼？你不理財，財不理你，閒著也是閒著，不如去銀行詢問理財專員吧！'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
     elif "(0-2)Guoren says:" in msg:
-        talkAbout = '國仁：\n找了理財專員才發現我還有很多手續要辦理，反正我也是第一次理財，就抽抽號碼牌，等櫃檯叫號吧！希望會被分配到妹子櫃檯。'
+        talkAbout = 'Guoren:\n找了理財專員才發現我還有很多手續要辦理，反正我也是第一次理財，就抽抽號碼牌，等櫃檯叫號吧！希望會被分配到妹子櫃檯。'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
     elif "(0-3)Guoren says:" in msg:
-        talkAbout = '國仁：\n今天銀行沒什麼人，看來也不需要排隊了，真幸運！不對，這是什麼情況？怎麼連櫃檯的人都沒有？難不成下班了嗎？我也才剛到銀行欸！。'
+        talkAbout = 'Guoren:\n今天銀行沒什麼人，看來也不需要排隊了，真幸運！不對，這是什麼情況？怎麼連櫃檯的人都沒有？難不成下班了嗎？我也才剛到銀行欸！。'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
     elif "(0-4)Guoren says:" in msg:
-        talkAbout = '國仁：\n咦？怎麼會有一扇門是開著的？這家銀行的控管也太鬆散了吧！如果我偷偷跑進去應該也不會怎樣吧，反正銀行現在連半個人都沒有。'
+        talkAbout = 'Guoren:\n咦？怎麼會有一扇門是開著的？這家銀行的控管也太鬆散了吧！如果我偷偷跑進去應該也不會怎樣吧，反正銀行現在連半個人都沒有。'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
 
@@ -275,7 +275,7 @@ def handle_message(event):
                                                                                                text="Start"
                                                                                                )]))
         else:
-            stageMessage = TextSendMessage(text='國仁：嗯......')
+            stageMessage = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(1)關燈' in msg:
         # 要確認玩家是否在第一關
@@ -300,7 +300,7 @@ def handle_message(event):
                                                                                                text="Start"
                                                                                                )]))
         else:
-            stageMessage = TextSendMessage(text='國仁：嗯......')
+            stageMessage = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(1)地板小卡' in msg:
         # 要確認玩家是否在第一關
@@ -316,7 +316,7 @@ def handle_message(event):
                                                                                           text="Start"
                                                                                           )]))
         else:
-            message = TextSendMessage(text='國仁：嗯......')
+            message = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, message)
 
     # 第二關內容
@@ -346,7 +346,7 @@ def handle_message(event):
                                                                                                text="Start"
                                                                                                )]))
         else:
-            stageMessage = TextSendMessage(text='國仁：嗯......')
+            stageMessage = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(2)牆上的照片' in msg:
         # 要確認玩家是否在第二關
@@ -369,7 +369,7 @@ def handle_message(event):
                                                                                                   text="Start"
                                                                                                   )]))
         else:
-            imagemapMessage = TextSendMessage(text='國仁：嗯......')
+            imagemapMessage = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, imagemapMessage)
     elif '(2)照片後的黃紙' in msg:
         # 要確認玩家是否在第二關
@@ -394,7 +394,7 @@ def handle_message(event):
                                                                                           )]))
             line_bot_api.reply_message(event.reply_token, message)
         else:
-            message = TextSendMessage(text='國仁：嗯......')
+            message = TextSendMessage(text='Guoren: Um...')
             line_bot_api.reply_message(event.reply_token, message)
     elif '(2)書架' in msg:
         # 要確認玩家是否在第二關
@@ -410,7 +410,7 @@ def handle_message(event):
                                                                                           text="Start"
                                                                                           )]))
         else:
-            message = TextSendMessage(text='國仁：嗯......')
+            message = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, message)
     elif '(2)陳列架' in msg:
         # 要確認玩家是否在第二關
@@ -426,7 +426,7 @@ def handle_message(event):
                                                                                           text="Start"
                                                                                           )]))
         else:
-            message = TextSendMessage(text='國仁：嗯......')
+            message = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, message)
 
     # 第三關內容
@@ -456,7 +456,7 @@ def handle_message(event):
                                                                                                text="Start"
                                                                                                )]))
         else:
-            stageMessage = TextSendMessage(text='國仁：嗯......')
+            stageMessage = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(3)電腦' in msg:
         # 要確認玩家是否在第三關
@@ -477,7 +477,7 @@ def handle_message(event):
                                                                                                )]))
             line_bot_api.reply_message(event.reply_token, stageMessage)
         else:
-            stageMessage = TextSendMessage(text='國仁：嗯......')
+            stageMessage = TextSendMessage(text='Guoren: Um...')
             line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(3)桌上的紙' in msg:
         # 要確認玩家是否在第三關
@@ -493,7 +493,7 @@ def handle_message(event):
                                                                                           text="Start"
                                                                                           )]))
         else:
-            message = TextSendMessage(text='國仁：嗯......')
+            message = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, message)
     elif '(3)打開抽屜' in msg:
         # 要確認玩家是否在第三關
@@ -516,7 +516,7 @@ def handle_message(event):
                                                                                                   text="Start"
                                                                                                   )]))
         else:
-            imagemapMessage = TextSendMessage(text='國仁：嗯......')
+            imagemapMessage = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, imagemapMessage)
     elif '(3)抽屜裡的東西' in msg:
         # 要確認玩家是否在第三關
@@ -549,7 +549,7 @@ def handle_message(event):
                                                                                                )]))
             line_bot_api.reply_message(event.reply_token, stageMessage)
         else:
-            stageMessage = TextSendMessage(text='國仁：嗯......')
+            stageMessage = TextSendMessage(text='Guoren: Um...')
             line_bot_api.reply_message(event.reply_token, stageMessage)
     elif '(3)將墊板疊在紙上' in msg:
         # 要確認玩家是否在第三關
@@ -565,7 +565,7 @@ def handle_message(event):
                                                                                           text="Start"
                                                                                           )]))
         else:
-            message = TextSendMessage(text='國仁：嗯......')
+            message = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, message)
     elif '(3)不疊' in msg:
         # 要確認玩家是否在第三關
@@ -583,7 +583,7 @@ def handle_message(event):
                                                                                                     text="Start"
                                                                                                     )])))
         else:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='國仁：嗯......'))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='Guoren: Um...'))
     # 其他控制選項
     elif 'Open the door!' in msg:
         userStage = getUserStage(userID)
@@ -764,7 +764,7 @@ def handle_message(event):
             replyArray.clear()
     elif '<<Swipe left<<' in msg:
         line_bot_api.reply_message(event.reply_token,
-                                   TextSendMessage(text="左滑看故事"))
+                                   TextSendMessage(text="Swipe left for stories."))
     elif 'WAKEUP!' in msg:
         userStage = getUserStage(userID)
         if userStage == 0:
@@ -783,11 +783,11 @@ def handle_message(event):
                                                   text='搞了半天，剛剛所有的經歷原來只是國仁的一場夢！',
                                                   actions=[
                                                       MessageAction(
-                                                          label='國仁說：',
-                                                          text='(END-1)國仁說：'
+                                                          label='Guoren says:',
+                                                          text='(END-1)Guoren says:'
                                                       ), MessageAction(
-                                                          label='<<<左滑<<<',
-                                                          text='<<<左滑<<<'
+                                                          label='<<Swipe left<<',
+                                                          text='<<Swipe left<<'
                                                       )
                                                   ]
                                               ), CarouselColumn(
@@ -796,11 +796,11 @@ def handle_message(event):
                                                   text='辦理好手續的國仁即將進入金融投資市場，成為理財大師的那天指日可待了。',
                                                   actions=[
                                                       MessageAction(
-                                                          label='國仁說：',
-                                                          text='(END-2)國仁說：'
+                                                          label='Guoren says:',
+                                                          text='(END-2)Guoren says:'
                                                       ), MessageAction(
-                                                          label='遊戲結束',
-                                                          text='遊戲結束'
+                                                          label='Game over',
+                                                          text='Game over'
                                                       )
                                                   ]
                                               )
@@ -812,7 +812,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
 
     # 遊戲結尾
-    elif '(END-1)國仁說：' in msg:
+    elif '(END-1)Guoren says:' in msg:
         userStage = getUserStage(userID)
         if userStage == 0:
             guoSay = TemplateSendMessage(alt_text='start_game',
@@ -825,9 +825,9 @@ def handle_message(event):
             talkInTheEnd = '國仁：\n哇靠！原來我是睡著了！真假啦！有夠丟臉的......。我就想說難怪，哪有一個銀行的管控管那麼差的，原來只是夢。算了不重要，被妹子行員叫醒才比較重要，辦理手續先。'
             guoSay = TextSendMessage(text=talkInTheEnd)
         else:
-            guoSay = TextSendMessage(text='國仁：嗯......')
+            guoSay = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, guoSay)
-    elif '(END-2)國仁說：' in msg:
+    elif '(END-2)Guoren says:' in msg:
         userStage = getUserStage(userID)
         if userStage == 0:
             guoSay = TemplateSendMessage(alt_text='start_game',
@@ -840,7 +840,7 @@ def handle_message(event):
             talkInTheEnd = '國仁：\n哈哈！一切準備就緒！看好了世界，世界上第二個巴菲特即將橫空出世！我要準備衝擊金融市場啦！'
             guoSay = TextSendMessage(text=talkInTheEnd)
         else:
-            guoSay = TextSendMessage(text='國仁：嗯......')
+            guoSay = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, guoSay)
     elif '遊戲結束' in msg:
         userStage = getUserStage(userID)
@@ -855,7 +855,7 @@ def handle_message(event):
             message = TextSendMessage(
                 text="恭喜你破關了！！！\n\n希望在遊玩的過程中有讓你學到一些基礎的金融英文單字，相信學會這些單字之後，對於未來讀財經英文新聞時會有所幫助。\n\n若想要複習這些單字的話，可以點選圖文選單的「REVIEW」按鈕，複習在在Fin Game學到的單字吧！\n\nFin Game在此感謝您的遊玩！")
         else:
-            message = TextSendMessage(text='國仁：嗯......')
+            message = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, message)
 
     # 複習單字
@@ -872,7 +872,7 @@ def handle_message(event):
             message = TextSendMessage(
                 text="一起複習在FinGame學到的單字吧！\nhttps://fingame-glb9.onrender.com/FinGameReview")
         else:
-            message = TextSendMessage(text='國仁：嗯......')
+            message = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, message)
 
     # 輸入其他文字的時候
@@ -888,7 +888,7 @@ def handle_message(event):
         elif userStage == 4:
             message = TextSendMessage(text='點擊圖文選單的「REVIEW」按鈕，複習一下在Fin Game學到的單字吧！')
         else:
-            message = TextSendMessage(text='國仁：嗯......')
+            message = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, message)
 
 
