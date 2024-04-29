@@ -151,7 +151,7 @@ def handle_message(event):
     userID = str(event.source.user_id)
     userName = line_bot_api.get_profile(userID).display_name
     # 劇情_前情提要
-    if 'Start' in msg:
+    if "Start" in msg:
         query = f'SELECT * FROM user_info WHERE user_id=\'{userID}\''
         datas = postgreSQLSelect(query)
         if len(datas) == 0:
@@ -161,54 +161,54 @@ def handle_message(event):
                                                               template=CarouselTemplate(columns=[
                                                                   CarouselColumn(
                                                                       thumbnail_image_url='https://i.imgur.com/RgBlFpa.png',
-                                                                      title='Guoren goes to the bank.',
-                                                                      text='Guoren wants to invest, so he goes to the bank to ask for the financial planning personnel.',
+                                                                      title="Guoren wants to invest.",
+                                                                      text="So he meets the financial planning personnel.",
                                                                       actions=[
                                                                           MessageAction(
-                                                                              label='Guoren says:',
-                                                                              text='(0-1)Guoren says:'
+                                                                              label="Guoren says:",
+                                                                              text="(0-1)Guoren says:"
                                                                           ), MessageAction(
-                                                                              label='<<Swipe left<<',
-                                                                              text='<<Swipe left<<'
+                                                                              label="<<Swipe left<<",
+                                                                              text="<<Swipe left<<"
                                                                           )
                                                                       ]
                                                                   ), CarouselColumn(
                                                                       thumbnail_image_url='https://i.imgur.com/kF5g7ri.png',
-                                                                      title='Guoren took a number.',
-                                                                      text='Guoren arrived at the bank, and took a number',
+                                                                      title="Guoren took a number.",
+                                                                      text="Guoren arrived at the bank, and took a number",
                                                                       actions=[
                                                                           MessageAction(
-                                                                              label='Guoren says:',
-                                                                              text='(0-2)Guoren says:'
+                                                                              label="Guoren says:",
+                                                                              text="(0-2)Guoren says:"
                                                                           ), MessageAction(
-                                                                              label='<<Swipe left<<',
-                                                                              text='<<Swipe left<<'
+                                                                              label="<<Swipe left<<",
+                                                                              text="<<Swipe left<<"
                                                                           )
                                                                       ]
                                                                   ), CarouselColumn(
                                                                       thumbnail_image_url='https://i.imgur.com/F8ho4aP.png',
-                                                                      title='Everyone at the bank has disappeared!',
-                                                                      text='After taking the number plate, Guoren found that everyone who was at the bank suddenly disappeared.',
+                                                                      title="After taking the number plate.",
+                                                                      text="Guoren found that everyone suddenly disappeared.",
                                                                       actions=[
                                                                           MessageAction(
-                                                                              label='Guoren says:',
-                                                                              text='(0-3)Guoren says:'
+                                                                              label="Guoren says:",
+                                                                              text="(0-3)Guoren says:"
                                                                           ), MessageAction(
-                                                                              label='<<Swipe left<<',
-                                                                              text='<<Swipe left<<'
+                                                                              label="<<Swipe left<<",
+                                                                              text="<<Swipe left<<"
                                                                           )
                                                                       ]
                                                                   ), CarouselColumn(
                                                                       thumbnail_image_url='https://i.imgur.com/3vu72hU.png',
-                                                                      title='A door is open.',
-                                                                      text="Surprisingly, there was an open door. Out of curiosity, Guoren decides to go inside and find out what's going on.",
+                                                                      title="Surprisingly, there was an open door.",
+                                                                      text="Guoren decides to go inside and find out what's going on.",
                                                                       actions=[
                                                                           MessageAction(
-                                                                              label='Guoren says:',
-                                                                              text='(0-4)Guoren says:'
+                                                                              label="Guoren says:",
+                                                                              text="(0-4)Guoren says:"
                                                                           ), MessageAction(
-                                                                              label='Enter the room.',
-                                                                              text='Enter the open room'
+                                                                              label="Enter the room.",
+                                                                              text="Enter the open room"
                                                                           )
                                                                       ]
                                                                   )
@@ -218,19 +218,19 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, story_carousel_template_message)
 
     # 劇情_台詞
-    elif '(0-1)Guoren says:' in msg:
+    elif "(0-1)Guoren says:" in msg:
         talkAbout = '國仁：\n最近剛賺了一筆，手上的閒置資金不知道要做什麼？你不理財，財不理你，閒著也是閒著，不如去銀行詢問理財專員吧！'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
-    elif '(0-2)Guoren says:' in msg:
+    elif "(0-2)Guoren says:" in msg:
         talkAbout = '國仁：\n找了理財專員才發現我還有很多手續要辦理，反正我也是第一次理財，就抽抽號碼牌，等櫃檯叫號吧！希望會被分配到妹子櫃檯。'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
-    elif '(0-3)Guoren says:' in msg:
+    elif "(0-3)Guoren says:" in msg:
         talkAbout = '國仁：\n今天銀行沒什麼人，看來也不需要排隊了，真幸運！不對，這是什麼情況？怎麼連櫃檯的人都沒有？難不成下班了嗎？我也才剛到銀行欸！。'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
-    elif '(0-4)Guoren says:' in msg:
+    elif "(0-4)Guoren says:" in msg:
         talkAbout = '國仁：\n咦？怎麼會有一扇門是開著的？這家銀行的控管也太鬆散了吧！如果我偷偷跑進去應該也不會怎樣吧，反正銀行現在連半個人都沒有。'
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
