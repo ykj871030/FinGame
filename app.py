@@ -320,7 +320,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
 
     # 第二關內容
-    elif '進入：MARKET...?' in msg:
+    elif 'Enter the MARKET...?' in msg:
         # 要確認玩家是否在第二關
         userStage = getUserStage(userID)
         if userStage == 2:
@@ -430,7 +430,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
 
     # 第三關內容
-    elif '進入：機房' in msg:
+    elif 'Enter the 機房' in msg:
         # 要確認玩家是否在第三關
         userStage = getUserStage(userID)
         if userStage == 3:
@@ -465,7 +465,7 @@ def handle_message(event):
             replyArray = []
             replyArray.append(ImageSendMessage(original_content_url='https://i.imgur.com/M0JjBY6.png',
                                                preview_image_url='https://i.imgur.com/M0JjBY6.png'))
-            replyArray.append(TextSendMessage(text="你知道電腦的密碼嗎？\n(輸入密碼時請輸入：\n電腦的密碼是 XXXXX)"))
+            replyArray.append(TextSendMessage(text="Do you know the password to your computer?\n(Input Format: \npassword is XXXXX)"))
             line_bot_api.reply_message(event.reply_token, replyArray)
             replyArray.clear()
         elif userStage == 0:
@@ -526,8 +526,8 @@ def handle_message(event):
             replyArray.append(ImageSendMessage(original_content_url='https://i.imgur.com/GSkijUS.png',
                                                preview_image_url='https://i.imgur.com/GSkijUS.png'))
             replyArray.append(TemplateSendMessage(alt_text='room_3_Bplate',
-                                                  template=ButtonsTemplate(title='是一個有奇怪記號的...墊板？',
-                                                                           text="總感覺疊在桌上的紙上面會發現什麼訊息，要疊上去嗎？",
+                                                  template=ButtonsTemplate(title="It's a pad with a strange marking on it.",
+                                                                           text="Do you want to stack it on top of the paper on the table?",
                                                                            actions=[MessageAction(label="Yes",
                                                                                                   text="(3)Stack the pad on the paper"
                                                                                                   ),
@@ -601,7 +601,7 @@ def handle_message(event):
                 text='Click "REVIEW" to review the financial terminology you learned at FinGame!'))
         else:
             line_bot_api.reply_message(event.reply_token,
-                                       TextSendMessage(text="你知道門的密碼嗎？\n(輸入密碼時請輸入：\n門的密碼是 XXXXX)"))
+                                       TextSendMessage(text="Do you know the code to the door?\n(Input Format: \nthe door code is XXXXX)"))
     elif 'Hint' in msg:
         hintSQL = f'''
         SELECT u.user_id, u.user_stage, s.hint
@@ -627,7 +627,7 @@ def handle_message(event):
             hint = datas[0][2]
             line_bot_api.reply_message(event.reply_token,
                                        TextSendMessage(text=hint))
-    elif '門的密碼是' in msg:
+    elif 'the door code is' in msg:
         answerSQL = f'''
         SELECT u.user_id, u.user_stage, s.answer, v.vocabulary
         FROM user_info u
@@ -656,7 +656,7 @@ def handle_message(event):
                 trueAnswer = datas[0][2].lower()
             else:
                 trueAnswer = datas[0][3].lower()
-            ans = msg.split('是')[1]
+            ans = msg.split('is')[1]
             ansRS = ans.strip().lower()
             # 去看玩家輸入的英文有沒有在單字庫裡
             vocabularySQL = f'''
@@ -680,7 +680,7 @@ def handle_message(event):
                 if stage == 3:
                     replyArray.append(TemplateSendMessage(alt_text='open_door',
                                                           template=ButtonsTemplate(title='The door is open!',
-                                                                                   text='門打開的瞬間，一道白光從門縫竄出，明顯的晃動也隨之而來...',
+                                                                                   text='It was accompanied by a white light and a distinct shaking.',
                                                                                    actions=[
                                                                                        MessageAction(
                                                                                            label=trueAnswer.upper() + "!",
@@ -696,10 +696,10 @@ def handle_message(event):
                     stageName = datas[0][1]
                     replyArray.append(TemplateSendMessage(alt_text='open_door',
                                                           template=ButtonsTemplate(title='The door is open!',
-                                                                                   text='Guoren:哇！沒想到我還蠻聰明的嘛！虧我想得到。',
+                                                                                   text="Guoren: It's my lucky day! I'm pretty awesome!",
                                                                                    actions=[
                                                                                        MessageAction(label="Enter the room",
-                                                                                                     text=f'進入：{stageName}'
+                                                                                                     text=f'Enter the {stageName}'
                                                                                                      )
                                                                                    ]
                                                                                    )
@@ -709,7 +709,7 @@ def handle_message(event):
                 replyArray.append(TextSendMessage(text=f"Wrong password! Please try again later."))
             line_bot_api.reply_message(event.reply_token, replyArray)
             replyArray.clear()
-    elif '電腦的密碼是' in msg:
+    elif 'password is' in msg:
         computerSQL = f'''
         SELECT u.user_id, u.user_stage, c.pwd, c.hint
         FROM user_info u
@@ -735,7 +735,7 @@ def handle_message(event):
                                            text='Click "REVIEW" to review the financial terminology you learned at FinGame!'))
         elif stage == 3:
             replyArray = []
-            pwd = msg.split('是')[1]
+            pwd = msg.split('is')[1]
             pwdRS = pwd.strip().lower()
 
             # 去看玩家輸入的英文有沒有在單字庫裡
@@ -779,8 +779,8 @@ def handle_message(event):
                                           template=CarouselTemplate(columns=[
                                               CarouselColumn(
                                                   thumbnail_image_url='https://i.imgur.com/alt97CB.png',
-                                                  title='國仁被行員叫醒',
-                                                  text='搞了半天，剛剛所有的經歷原來只是國仁的一場夢！',
+                                                  title='Guoren is woken up by a bank teller.',
+                                                  text="Everything is Guoren's dream!",
                                                   actions=[
                                                       MessageAction(
                                                           label='Guoren says:',
@@ -792,8 +792,8 @@ def handle_message(event):
                                                   ]
                                               ), CarouselColumn(
                                                   thumbnail_image_url='https://i.imgur.com/WJpKVks.png',
-                                                  title='國仁搖身一變成為了理財大師(自稱)',
-                                                  text='辦理好手續的國仁即將進入金融投資市場，成為理財大師的那天指日可待了。',
+                                                  title='Guoren has become a financial guru (self-proclaimed).',
+                                                  text='Guoren will enter the financial investment market.',
                                                   actions=[
                                                       MessageAction(
                                                           label='Guoren says:',
@@ -808,7 +808,7 @@ def handle_message(event):
                                           )
                                           )
         else:
-            message = TextSendMessage(text="(似乎有股莫名的力量正呼喚著國仁，但國仁不以為意...)")
+            message = TextSendMessage(text="(It seems that an inexplicable force is calling out to Guoren. But Guoren did not think so....)")
         line_bot_api.reply_message(event.reply_token, message)
 
     # 遊戲結尾
@@ -853,7 +853,7 @@ def handle_message(event):
                                                                                           )]))
         elif userStage == 4:
             message = TextSendMessage(
-                text="Congratulations!!!\n\n希望在遊玩的過程中有讓你學到一些基礎的金融英文單字，相信學會這些單字之後，對於未來讀財經英文新聞時會有所幫助。\n\n若想要複習這些單字的話，可以點選圖文選單的「REVIEW」按鈕，複習在在Fin Game學到的單字吧！\n\nFin Game在此感謝您的遊玩！")
+                text='Congratulations!!!\n\nHopefully, you will learn some financial terminology during the game. Learning these words will help you when you read financial news in English in the future.\n\nIf you want to review these terminology, you can open the rich menus and click "REVIEW".\n\nFinGame would like to thanks for playing!')
         else:
             message = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, message)
