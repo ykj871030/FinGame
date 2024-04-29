@@ -698,7 +698,7 @@ def handle_message(event):
                                                           template=ButtonsTemplate(title='The door is open!',
                                                                                    text='Guoren:哇！沒想到我還蠻聰明的嘛！虧我想得到。',
                                                                                    actions=[
-                                                                                       MessageAction(label="Enter the room.",
+                                                                                       MessageAction(label="Enter the room",
                                                                                                      text=f'進入：{stageName}'
                                                                                                      )
                                                                                    ]
@@ -842,7 +842,7 @@ def handle_message(event):
         else:
             guoSay = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, guoSay)
-    elif '遊戲結束' in msg:
+    elif 'Game over' in msg:
         userStage = getUserStage(userID)
         if userStage == 0:
             message = TemplateSendMessage(alt_text='start_game',
