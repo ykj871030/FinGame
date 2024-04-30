@@ -430,7 +430,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
 
     # 第三關內容
-    elif 'Enter the 機房' in msg:
+    elif 'Enter the IDC' in msg:
         # 要確認玩家是否在第三關
         userStage = getUserStage(userID)
         if userStage == 3:
