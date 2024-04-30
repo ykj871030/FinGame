@@ -627,7 +627,7 @@ def handle_message(event):
             hint = datas[0][2]
             line_bot_api.reply_message(event.reply_token,
                                        TextSendMessage(text=hint))
-    elif 'the door code is' in msg:
+    elif 'the door code is' in msg.lower():
         answerSQL = f'''
         SELECT u.user_id, u.user_stage, s.answer, v.vocabulary
         FROM user_info u
@@ -709,7 +709,7 @@ def handle_message(event):
                 replyArray.append(TextSendMessage(text=f"Wrong password! Please try again later."))
             line_bot_api.reply_message(event.reply_token, replyArray)
             replyArray.clear()
-    elif 'password is' in msg:
+    elif 'password is' in msg.lower():
         computerSQL = f'''
         SELECT u.user_id, u.user_stage, c.pwd, c.hint
         FROM user_info u
