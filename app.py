@@ -207,7 +207,7 @@ def handle_message(event):
                                                                               label="Guoren says:",
                                                                               text="(0-4)Guoren says:"
                                                                           ), MessageAction(
-                                                                              label="Enter the room.",
+                                                                              label="Enter the room",
                                                                               text="Enter the open room"
                                                                           )
                                                                       ]
@@ -246,7 +246,7 @@ def handle_message(event):
                                            actions=[MessageImagemapAction(text='(1)Orange paper',
                                                                           area=ImagemapArea(x=195, y=890, width=158,
                                                                                             height=105)),
-                                                    MessageImagemapAction(text='(1)Turn off the lights',
+                                                    MessageImagemapAction(text='(1)Turn off the light',
                                                                           area=ImagemapArea(x=898, y=449, width=118,
                                                                                             height=161))
                                                     ]
@@ -262,7 +262,7 @@ def handle_message(event):
                                                actions=[MessageImagemapAction(text='(1)Orange paper',
                                                                               area=ImagemapArea(x=195, y=890, width=158,
                                                                                                 height=105)),
-                                                        MessageImagemapAction(text='(1)Turn off the lights',
+                                                        MessageImagemapAction(text='(1)Turn off the light',
                                                                               area=ImagemapArea(x=898, y=449, width=118,
                                                                                                 height=161))
                                                         ]
@@ -277,7 +277,7 @@ def handle_message(event):
         else:
             stageMessage = TextSendMessage(text='Guoren: Um...')
         line_bot_api.reply_message(event.reply_token, stageMessage)
-    elif '(1)Turn off the lights' in msg:
+    elif '(1)Turn off the light' in msg:
         # 要確認玩家是否在第一關
         userStage = getUserStage(userID)
         if userStage == 1:
