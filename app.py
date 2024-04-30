@@ -219,19 +219,19 @@ def handle_message(event):
 
     # 劇情_台詞
     elif "(0-1)Guoren says:" in msg:
-        talkAbout = 'Guoren:\n最近剛賺了一筆，手上的閒置資金不知道要做什麼？你不理財，財不理你，閒著也是閒著，不如去銀行詢問理財專員吧！'
+        talkAbout = '''Guoren:\nI have idle assets recently. As the saying goes, "If you don't care about your money, your money won't care about you". Let's go and meet with the financial planning personnel.'''
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
     elif "(0-2)Guoren says:" in msg:
-        talkAbout = 'Guoren:\n找了理財專員才發現我還有很多手續要辦理，反正我也是第一次理財，就抽抽號碼牌，等櫃檯叫號吧！希望會被分配到妹子櫃檯。'
+        talkAbout = '''Guoren:\nI have a lot of paperwork to do. I'll wait for my number to be called. I hope I'll be assigned to a female teller.'''
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
     elif "(0-3)Guoren says:" in msg:
-        talkAbout = 'Guoren:\n今天銀行沒什麼人，看來也不需要排隊了，真幸運！不對，這是什麼情況？怎麼連櫃檯的人都沒有？難不成下班了嗎？我也才剛到銀行欸！。'
+        talkAbout = '''Guoren:\nThere's no line at the bank today, lucky me! No, what's going on here? Why is there no one at the counter? Is it closing time? I just got to the bank!'''
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
     elif "(0-4)Guoren says:" in msg:
-        talkAbout = 'Guoren:\n咦？怎麼會有一扇門是開著的？這家銀行的控管也太鬆散了吧！如果我偷偷跑進去應該也不會怎樣吧，反正銀行現在連半個人都沒有。'
+        talkAbout = '''Guoren:\nHuh? Why is there an open door? The control of this bank is too loose, isn't it? I don't think it would be a problem if I sneaked in. There's no one in the bank right now.'''
         guoSay = TextSendMessage(text=talkAbout)
         line_bot_api.reply_message(event.reply_token, guoSay)
 
@@ -822,7 +822,7 @@ def handle_message(event):
                                                                                          text="Start"
                                                                                          )]))
         elif userStage == 4:
-            talkInTheEnd = 'Guoren:\n哇靠！原來我是睡著了！真假啦！有夠丟臉的......。我就想說難怪，哪有一個銀行的管控管那麼差的，原來只是夢。算了不重要，被妹子行員叫醒才比較重要，辦理手續先。'
+            talkInTheEnd = '''Guoren:\nI fell asleep! It's embarrassing. What kind of bank has such poor control? It was just a dream. It doesn't matter. There's nothing more important than being woken up by a female banker. I'm here to do my paperwork.'''
             guoSay = TextSendMessage(text=talkInTheEnd)
         else:
             guoSay = TextSendMessage(text='Guoren: Um...')
@@ -837,7 +837,7 @@ def handle_message(event):
                                                                                          text="Start"
                                                                                          )]))
         elif userStage == 4:
-            talkInTheEnd = 'Guoren:\n哈哈！一切準備就緒！看好了世界，世界上第二個巴菲特即將橫空出世！我要準備衝擊金融市場啦！'
+            talkInTheEnd = '''Guoren:\nHa-ha-ha! Everything is ready! The world's second Warren Buffett is about to be born! I'm getting ready to enter the financial markets!'''
             guoSay = TextSendMessage(text=talkInTheEnd)
         else:
             guoSay = TextSendMessage(text='Guoren: Um...')
